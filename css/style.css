@@ -37,6 +37,27 @@
   --transition: all 0.3s ease;
 }
 
+/* --- Firefly canvas layer --- */
+#firefly-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure all content sits above the canvas */
+.nav,
+.hero,
+section,
+.footer,
+main {
+  position: relative;
+  z-index: 1;
+}
+
 /* --- Reset & Base --- */
 *,
 *::before,
