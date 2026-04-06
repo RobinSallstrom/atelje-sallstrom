@@ -36,18 +36,18 @@
      * Weights control how often each tier is chosen.
      */
     sizeTiers: [
-      { radius: 18,  weight: 3 }, // small
-      { radius: 38,  weight: 4 }, // medium
-      { radius: 68,  weight: 2 }, // large
-      { radius: 110, weight: 1 }, // extra-large (rare)
+      { radius: 6,   weight: 3 }, // small  — firefly-scale
+      { radius: 13,  weight: 4 }, // medium
+      { radius: 24,  weight: 2 }, // large
+      { radius: 40,  weight: 1 }, // extra-large (rare)
     ],
 
     /** Peak opacity at the gradient centre, per tier */
     peakOpacity: {
-      small:       0.70,
-      medium:      0.55,
-      large:       0.38,
-      extraLarge:  0.22,
+      small:       0.75,
+      medium:      0.60,
+      large:       0.45,
+      extraLarge:  0.30,
     },
 
     /** Drift speed range (px / frame at 60 fps) */
@@ -60,12 +60,16 @@
     flickerRateMax:  0.022,  // fast, nervous particles
 
     /** Fade-out / respawn */
-    fadeChanceMin:   0.0004, // slow particles rarely start fading
-    fadeChanceMax:   0.0018, // fast particles fade more readily
-    fadeSpeedMin:    0.006,
-    fadeSpeedMax:    0.020,
-    respawnMin:      30,     // frames before respawn
-    respawnMax:      160,
+    fadeChanceMin:   0.0003, // slow particles rarely start fading
+    fadeChanceMax:   0.0012, // fast particles fade more readily
+    // Fade-out: slow breath — takes ~4–10 s to fully disappear at 60 fps
+    fadeSpeedMin:    0.0015,
+    fadeSpeedMax:    0.0045,
+    // Fade-in: particles ease in from opacity 0 over ~3–7 s
+    fadeInSpeedMin:  0.0018,
+    fadeInSpeedMax:  0.0050,
+    respawnMin:      20,     // frames before respawn
+    respawnMax:      100,
 
     /** Cursor repulsion */
     repelRadius:   140,
@@ -139,11 +143,18 @@
     this.fadeChance = CONFIG.fadeChanceMin + t * (CONFIG.fadeChanceMax - CONFIG.fadeChanceMin);
     this.fadeSpeed  = CONFIG.fadeSpeedMin  + t * (CONFIG.fadeSpeedMax  - CONFIG.fadeSpeedMin);
 
-    // Current opacity — start at 0 and let flicker bring it up naturally
+    // Fade-in speed — each particle eases in at its own pace
+    var t2 = (this.flickerRate - CONFIG.flickerRateMin) /
+             (CONFIG.flickerRateMax - CONFIG.flickerRateMin);
+    this.fadeInSpeed = CONFIG.fadeInSpeedMin + t2 * (CONFIG.fadeInSpeedMax - CONFIG.fadeInSpeedMin);
+
+    // Lifecycle state: 'in' (fading in), 'live' (flickering), 'out' (fading out)
+    // Initial particles start at a random point in their live phase
+    this.phase   = initial ? 'live' : 'in';
     this.opacity = initial ? rand(0, this.peakOpacity) : 0;
 
     this.alive  = true;
-    this.fading = false;
+    this.fading = false; // kept for legacy compat, phase drives behaviour
   };
 
   Particle.prototype.update = function () {
@@ -153,12 +164,28 @@
       return;
     }
 
-    // Random fade trigger
-    if (!this.fading && Math.random() < this.fadeChance) {
-      this.fading = true;
-    }
+    if (this.phase === 'in') {
+      // Ease in: gradually increase opacity toward peakOpacity
+      this.opacity += this.fadeInSpeed;
+      if (this.opacity >= this.peakOpacity) {
+        this.opacity = this.peakOpacity;
+        this.phase = 'live';
+        // Sync flicker phase so it starts at the right level
+        this.flickerPhase = Math.PI / 2; // sin(π/2) = 1 → starts at peak
+      }
+    } else if (this.phase === 'live') {
+      // Flicker: sine wave around peakOpacity
+      this.flickerPhase += this.flickerRate;
+      var wave = Math.sin(this.flickerPhase); // −1 … +1
+      this.opacity = this.peakOpacity + wave * this.peakOpacity * CONFIG.flickerDepth;
+      if (this.opacity < 0) this.opacity = 0;
+      if (this.opacity > 1) this.opacity = 1;
 
-    if (this.fading) {
+      // Random trigger to begin fading out
+      if (Math.random() < this.fadeChance) this.phase = 'out';
+
+    } else if (this.phase === 'out') {
+      // Ease out: gradually decrease opacity to zero
       this.opacity -= this.fadeSpeed;
       if (this.opacity <= 0) {
         this.opacity = 0;
@@ -166,14 +193,6 @@
         this.respawnTimer = randInt(CONFIG.respawnMin, CONFIG.respawnMax);
         return;
       }
-    } else {
-      // Flicker: sine wave around peakOpacity
-      this.flickerPhase += this.flickerRate;
-      var wave = Math.sin(this.flickerPhase); // −1 … +1
-      this.opacity = this.peakOpacity + wave * this.peakOpacity * CONFIG.flickerDepth;
-      // Clamp to valid range
-      if (this.opacity < 0) this.opacity = 0;
-      if (this.opacity > 1) this.opacity = 1;
     }
 
     // Cursor repulsion
