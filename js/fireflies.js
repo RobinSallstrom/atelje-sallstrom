@@ -1,143 +1,184 @@
 /**
  * Firefly Particle Animation — Ateljé Sällström
- * 
- * Atmospheric canvas-based particle system using brand colors.
- * Particles flicker, fade, respawn, glow, and repel from the cursor.
+ *
+ * Canvas-based atmospheric particle system using brand colors.
+ * Each particle is rendered as a soft radial-gradient glow blob —
+ * full color at the center, smoothly fading to transparent at the edge.
+ * Particles flicker, fade, respawn, and repel from the cursor.
  * Renders behind all page content via a fixed, full-viewport canvas.
  */
 (function () {
   'use strict';
 
-  /* ── Configuration ─────────────────────────────────────── */
-  const CONFIG = {
-    /** Number of particles (scales with viewport area) */
+  /* ─────────────────────────────────────────────────────────
+     Configuration
+  ───────────────────────────────────────────────────────── */
+  var CONFIG = {
+
+    /** Responsive particle count: ~1 per 10 000 px², clamped 35–130 */
     particleCount: function () {
-      const area = window.innerWidth * window.innerHeight;
-      // ~1 particle per 12 000 px², clamped 30–120
-      return Math.max(30, Math.min(120, Math.round(area / 12000)));
+      var area = window.innerWidth * window.innerHeight;
+      return Math.max(35, Math.min(130, Math.round(area / 10000)));
     },
-    /** Brand palette — each particle picks one at random */
+
+    /** Brand palette */
     colors: [
-      { r: 155, g: 225, b: 229 }, // #9BE1E5 cyan
-      { r: 42,  g: 173, b: 193 }, // #2AADC1 deep teal
-      { r: 244, g: 145, b: 197 }, // #F491C5 hot pink
-      { r: 210, g: 105, b: 218 }, // #D269DA vivid purple
+      { r: 155, g: 225, b: 229 }, // #9BE1E5  cyan
+      { r:  42, g: 173, b: 193 }, // #2AADC1  deep teal
+      { r: 244, g: 145, b: 197 }, // #F491C5  hot pink
+      { r: 210, g: 105, b: 218 }, // #D269DA  vivid purple
     ],
-    /** Size range (radius in px) */
-    sizeMin: 1.5,
-    sizeMax: 4.5,
+
+    /**
+     * Size tiers — each particle is assigned one tier at birth.
+     * `radius` is the full gradient radius (px); the color-core is
+     * concentrated in the inner ~30 % of that radius.
+     * Weights control how often each tier is chosen.
+     */
+    sizeTiers: [
+      { radius: 18,  weight: 3 }, // small
+      { radius: 38,  weight: 4 }, // medium
+      { radius: 68,  weight: 2 }, // large
+      { radius: 110, weight: 1 }, // extra-large (rare)
+    ],
+
+    /** Peak opacity at the gradient centre, per tier */
+    peakOpacity: {
+      small:       0.70,
+      medium:      0.55,
+      large:       0.38,
+      extraLarge:  0.22,
+    },
+
     /** Drift speed range (px / frame at 60 fps) */
-    speedMin: 0.08,
-    speedMax: 0.35,
-    /** Opacity flicker */
-    opacityMin: 0.05,
-    opacityMax: 0.55,
-    flickerSpeed: 0.003,   // base rate of opacity oscillation
-    /** Glow blur radius multiplier (× particle size) */
-    glowMultiplier: 8,
-    /** Mouse repulsion */
-    repelRadius: 130,       // px — detection distance
-    repelStrength: 2.8,     // push force multiplier
+    speedMin: 0.06,
+    speedMax: 0.30,
+
+    /** Flicker — opacity oscillates around its peak value */
+    flickerDepth:    0.28,   // ± fraction of peakOpacity
+    flickerRateMin:  0.004,  // slow, languid particles
+    flickerRateMax:  0.022,  // fast, nervous particles
+
     /** Fade-out / respawn */
-    fadeChance: 0.001,      // per-frame probability a particle starts fading
-    fadeSpeed: 0.012,       // opacity decrease per frame while fading
-    respawnDelay: [40, 120] // frames to wait before respawning (min, max)
+    fadeChanceMin:   0.0004, // slow particles rarely start fading
+    fadeChanceMax:   0.0018, // fast particles fade more readily
+    fadeSpeedMin:    0.006,
+    fadeSpeedMax:    0.020,
+    respawnMin:      30,     // frames before respawn
+    respawnMax:      160,
+
+    /** Cursor repulsion */
+    repelRadius:   140,
+    repelStrength:   3.0,
   };
 
-  /* ── State ─────────────────────────────────────────────── */
-  let canvas, ctx;
-  let particles = [];
-  let mouse = { x: -9999, y: -9999 };
-  let animId = null;
-  let dpr = 1;
+  /* ─────────────────────────────────────────────────────────
+     Helpers
+  ───────────────────────────────────────────────────────── */
+  function rand(lo, hi)  { return Math.random() * (hi - lo) + lo; }
+  function randInt(lo, hi) { return Math.floor(rand(lo, hi + 1)); }
 
-  /* ── Helpers ───────────────────────────────────────────── */
-  function rand(min, max) { return Math.random() * (max - min) + min; }
-  function randInt(min, max) { return Math.floor(rand(min, max + 1)); }
-  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-  /* ── Particle class ────────────────────────────────────── */
-  function Particle(forcePos) {
-    this.reset(forcePos);
+  /** Weighted random pick from sizeTiers */
+  function pickTier() {
+    var tiers = CONFIG.sizeTiers;
+    var total = 0;
+    for (var i = 0; i < tiers.length; i++) total += tiers[i].weight;
+    var r = Math.random() * total;
+    var acc = 0;
+    for (var j = 0; j < tiers.length; j++) {
+      acc += tiers[j].weight;
+      if (r < acc) return j; // 0=small, 1=medium, 2=large, 3=extra-large
+    }
+    return 1;
   }
 
-  Particle.prototype.reset = function (forcePos) {
-    var w = canvas.width / dpr;
+  function pickColor() {
+    return CONFIG.colors[Math.floor(Math.random() * CONFIG.colors.length)];
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Particle
+  ───────────────────────────────────────────────────────── */
+  function Particle() {
+    this.alive = false;
+    this.respawnTimer = 0;
+    this.reset(true);
+  }
+
+  Particle.prototype.reset = function (initial) {
+    var w = canvas.width  / dpr;
     var h = canvas.height / dpr;
 
-    if (forcePos) {
-      this.x = rand(0, w);
-      this.y = rand(0, h);
-    } else {
-      // Respawn at a random edge or random position
-      this.x = rand(0, w);
-      this.y = rand(0, h);
-    }
+    this.x = rand(0, w);
+    this.y = rand(0, h);
 
-    var color = pick(CONFIG.colors);
-    this.r = color.r;
-    this.g = color.g;
-    this.b = color.b;
+    // Color
+    var c = pickColor();
+    this.r = c.r; this.g = c.g; this.b = c.b;
 
-    this.size = rand(CONFIG.sizeMin, CONFIG.sizeMax);
-    this.baseSpeed = rand(CONFIG.speedMin, CONFIG.speedMax);
+    // Size tier
+    var ti = pickTier();
+    this.radius = CONFIG.sizeTiers[ti].radius;
+    var peakKeys = ['small', 'medium', 'large', 'extraLarge'];
+    this.peakOpacity = CONFIG.peakOpacity[peakKeys[ti]];
 
-    // Gentle random drift direction
+    // Drift
     var angle = rand(0, Math.PI * 2);
-    this.vx = Math.cos(angle) * this.baseSpeed;
-    this.vy = Math.sin(angle) * this.baseSpeed;
+    var speed = rand(CONFIG.speedMin, CONFIG.speedMax);
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+    this.baseSpeed = speed;
 
-    // Flicker state
-    this.opacity = rand(CONFIG.opacityMin, CONFIG.opacityMax);
+    // Flicker — each particle gets its own rate and phase
     this.flickerPhase = rand(0, Math.PI * 2);
-    this.flickerRate = rand(CONFIG.flickerSpeed * 0.5, CONFIG.flickerSpeed * 2);
+    this.flickerRate  = rand(CONFIG.flickerRateMin, CONFIG.flickerRateMax);
 
-    // Life state
-    this.alive = true;
+    // Fade — faster flickerers also fade more readily and quickly
+    var t = (this.flickerRate - CONFIG.flickerRateMin) /
+            (CONFIG.flickerRateMax - CONFIG.flickerRateMin); // 0–1
+    this.fadeChance = CONFIG.fadeChanceMin + t * (CONFIG.fadeChanceMax - CONFIG.fadeChanceMin);
+    this.fadeSpeed  = CONFIG.fadeSpeedMin  + t * (CONFIG.fadeSpeedMax  - CONFIG.fadeSpeedMin);
+
+    // Current opacity — start at 0 and let flicker bring it up naturally
+    this.opacity = initial ? rand(0, this.peakOpacity) : 0;
+
+    this.alive  = true;
     this.fading = false;
-    this.respawnTimer = 0;
   };
 
   Particle.prototype.update = function () {
-    var w = canvas.width / dpr;
-    var h = canvas.height / dpr;
-
-    // If waiting to respawn
     if (!this.alive) {
       this.respawnTimer--;
-      if (this.respawnTimer <= 0) {
-        this.reset(false);
-        this.alive = true;
-        this.fading = false;
-        this.opacity = 0; // will fade in via flicker
-      }
+      if (this.respawnTimer <= 0) this.reset(false);
       return;
     }
 
-    // Random chance to start fading
-    if (!this.fading && Math.random() < CONFIG.fadeChance) {
+    // Random fade trigger
+    if (!this.fading && Math.random() < this.fadeChance) {
       this.fading = true;
     }
 
-    // Fading out
     if (this.fading) {
-      this.opacity -= CONFIG.fadeSpeed;
+      this.opacity -= this.fadeSpeed;
       if (this.opacity <= 0) {
         this.opacity = 0;
         this.alive = false;
-        this.respawnTimer = randInt(CONFIG.respawnDelay[0], CONFIG.respawnDelay[1]);
+        this.respawnTimer = randInt(CONFIG.respawnMin, CONFIG.respawnMax);
         return;
       }
     } else {
-      // Normal flicker
+      // Flicker: sine wave around peakOpacity
       this.flickerPhase += this.flickerRate;
-      var flicker = (Math.sin(this.flickerPhase) + 1) / 2; // 0–1
-      this.opacity = CONFIG.opacityMin + flicker * (CONFIG.opacityMax - CONFIG.opacityMin);
+      var wave = Math.sin(this.flickerPhase); // −1 … +1
+      this.opacity = this.peakOpacity + wave * this.peakOpacity * CONFIG.flickerDepth;
+      // Clamp to valid range
+      if (this.opacity < 0) this.opacity = 0;
+      if (this.opacity > 1) this.opacity = 1;
     }
 
-    // Mouse repulsion
-    var dx = this.x - mouse.x;
-    var dy = this.y - mouse.y;
+    // Cursor repulsion
+    var dx   = this.x - mouse.x;
+    var dy   = this.y - mouse.y;
     var dist = Math.sqrt(dx * dx + dy * dy);
     if (dist < CONFIG.repelRadius && dist > 0) {
       var force = (1 - dist / CONFIG.repelRadius) * CONFIG.repelStrength;
@@ -145,64 +186,71 @@
       this.vy += (dy / dist) * force;
     }
 
-    // Drift with gentle friction to bleed off repulsion energy
-    this.vx *= 0.98;
-    this.vy *= 0.98;
+    // Friction to bleed off repulsion energy
+    this.vx *= 0.978;
+    this.vy *= 0.978;
 
-    // Re-inject a tiny base drift so particles never fully stop
-    var angle = Math.atan2(this.vy, this.vx);
-    var currentSpeed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-    if (currentSpeed < this.baseSpeed * 0.5) {
-      this.vx += Math.cos(angle || rand(0, Math.PI * 2)) * 0.01;
-      this.vy += Math.sin(angle || rand(0, Math.PI * 2)) * 0.01;
+    // Re-inject base drift if nearly stopped
+    var spd = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+    if (spd < this.baseSpeed * 0.4) {
+      var a = Math.atan2(this.vy, this.vx) || rand(0, Math.PI * 2);
+      this.vx += Math.cos(a) * 0.012;
+      this.vy += Math.sin(a) * 0.012;
     }
 
     this.x += this.vx;
     this.y += this.vy;
 
-    // Wrap around edges with padding
-    var pad = 20;
-    if (this.x < -pad) this.x = w + pad;
+    // Wrap around edges
+    var w = canvas.width  / dpr;
+    var h = canvas.height / dpr;
+    var pad = this.radius + 10;
+    if (this.x < -pad)    this.x = w + pad;
     if (this.x > w + pad) this.x = -pad;
-    if (this.y < -pad) this.y = h + pad;
+    if (this.y < -pad)    this.y = h + pad;
     if (this.y > h + pad) this.y = -pad;
   };
 
   Particle.prototype.draw = function () {
-    if (!this.alive || this.opacity <= 0) return;
+    if (!this.alive || this.opacity <= 0.005) return;
 
-    ctx.save();
-    ctx.globalAlpha = this.opacity;
-    ctx.shadowColor = 'rgba(' + this.r + ',' + this.g + ',' + this.b + ',0.8)';
-    ctx.shadowBlur = this.size * CONFIG.glowMultiplier;
+    var x = this.x, y = this.y, rad = this.radius;
+    var op = this.opacity;
+
+    // Radial gradient: full color+opacity at centre → fully transparent at edge
+    var grad = ctx.createRadialGradient(x, y, 0, x, y, rad);
+    grad.addColorStop(0,    'rgba(' + this.r + ',' + this.g + ',' + this.b + ',' + op.toFixed(3) + ')');
+    grad.addColorStop(0.35, 'rgba(' + this.r + ',' + this.g + ',' + this.b + ',' + (op * 0.55).toFixed(3) + ')');
+    grad.addColorStop(0.70, 'rgba(' + this.r + ',' + this.g + ',' + this.b + ',' + (op * 0.15).toFixed(3) + ')');
+    grad.addColorStop(1,    'rgba(' + this.r + ',' + this.g + ',' + this.b + ',0)');
+
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(' + this.r + ',' + this.g + ',' + this.b + ',1)';
+    ctx.arc(x, y, rad, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
     ctx.fill();
-    ctx.restore();
   };
 
-  /* ── Canvas setup ──────────────────────────────────────── */
+  /* ─────────────────────────────────────────────────────────
+     Canvas setup
+  ───────────────────────────────────────────────────────── */
+  var canvas, ctx, dpr = 1;
+  var particles = [];
+  var mouse = { x: -9999, y: -9999 };
+  var animId = null;
+
   function createCanvas() {
     canvas = document.createElement('canvas');
     canvas.id = 'firefly-canvas';
-    canvas.style.cssText = [
-      'position:fixed',
-      'top:0',
-      'left:0',
-      'width:100vw',
-      'height:100vh',
-      'pointer-events:none',
-      'z-index:0',
-      'opacity:1'
-    ].join(';');
+    canvas.style.cssText =
+      'position:fixed;top:0;left:0;width:100vw;height:100vh;' +
+      'pointer-events:none;z-index:0;';
     document.body.insertBefore(canvas, document.body.firstChild);
     ctx = canvas.getContext('2d');
   }
 
   function resize() {
     dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
+    canvas.width  = window.innerWidth  * dpr;
     canvas.height = window.innerHeight * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
@@ -210,12 +258,12 @@
   function initParticles() {
     var count = CONFIG.particleCount();
     particles = [];
-    for (var i = 0; i < count; i++) {
-      particles.push(new Particle(true));
-    }
+    for (var i = 0; i < count; i++) particles.push(new Particle());
   }
 
-  /* ── Animation loop ────────────────────────────────────── */
+  /* ─────────────────────────────────────────────────────────
+     Animation loop
+  ───────────────────────────────────────────────────────── */
   function loop() {
     ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
     for (var i = 0; i < particles.length; i++) {
@@ -225,68 +273,55 @@
     animId = requestAnimationFrame(loop);
   }
 
-  /* ── Event listeners ───────────────────────────────────── */
-  function onMouseMove(e) {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  }
-
-  function onMouseLeave() {
-    mouse.x = -9999;
-    mouse.y = -9999;
-  }
-
-  function onTouchMove(e) {
+  /* ─────────────────────────────────────────────────────────
+     Event listeners
+  ───────────────────────────────────────────────────────── */
+  function onMouseMove(e)  { mouse.x = e.clientX; mouse.y = e.clientY; }
+  function onMouseLeave()  { mouse.x = -9999; mouse.y = -9999; }
+  function onTouchMove(e)  {
     if (e.touches.length > 0) {
       mouse.x = e.touches[0].clientX;
       mouse.y = e.touches[0].clientY;
     }
   }
+  function onTouchEnd()    { mouse.x = -9999; mouse.y = -9999; }
 
-  function onTouchEnd() {
-    mouse.x = -9999;
-    mouse.y = -9999;
-  }
-
-  /* ── Visibility: pause when tab is hidden ──────────────── */
   function onVisibility() {
     if (document.hidden) {
       if (animId) { cancelAnimationFrame(animId); animId = null; }
     } else {
-      if (!animId) { animId = requestAnimationFrame(loop); }
+      if (!animId) animId = requestAnimationFrame(loop);
     }
   }
 
-  /* ── Debounced resize ──────────────────────────────────── */
   var resizeTimer;
   function onResize() {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      resize();
-      initParticles();
-    }, 200);
+    resizeTimer = setTimeout(function () { resize(); initParticles(); }, 200);
   }
 
-  /* ── Init ──────────────────────────────────────────────── */
+  /* ─────────────────────────────────────────────────────────
+     Init
+  ───────────────────────────────────────────────────────── */
   function init() {
     createCanvas();
     resize();
     initParticles();
 
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    document.addEventListener('mouseleave', onMouseLeave);
-    window.addEventListener('touchmove', onTouchMove, { passive: true });
-    window.addEventListener('touchend', onTouchEnd, { passive: true });
-    window.addEventListener('resize', onResize, { passive: true });
+    window.addEventListener('mousemove',       onMouseMove,  { passive: true });
+    document.addEventListener('mouseleave',    onMouseLeave);
+    window.addEventListener('touchmove',       onTouchMove,  { passive: true });
+    window.addEventListener('touchend',        onTouchEnd,   { passive: true });
+    window.addEventListener('resize',          onResize,     { passive: true });
     document.addEventListener('visibilitychange', onVisibility);
 
     animId = requestAnimationFrame(loop);
   }
 
-  // Start when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
+
 })();
