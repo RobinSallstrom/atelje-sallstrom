@@ -15,10 +15,10 @@
   ───────────────────────────────────────────────────────── */
   var CONFIG = {
 
-    /** Responsive particle count: ~1 per 10 000 px², clamped 35–130 */
+    /** Responsive particle count: ~0.7 per 10 000 px², clamped 25–90 */
     particleCount: function () {
       var area = window.innerWidth * window.innerHeight;
-      return Math.max(35, Math.min(130, Math.round(area / 10000)));
+      return Math.max(25, Math.min(90, Math.round((area / 10000) * 0.7)));
     },
 
     /** Brand palette */
@@ -36,10 +36,10 @@
      * Weights control how often each tier is chosen.
      */
     sizeTiers: [
-      { radius: 6,   weight: 3 }, // small  — firefly-scale
-      { radius: 13,  weight: 4 }, // medium
-      { radius: 24,  weight: 2 }, // large
-      { radius: 40,  weight: 1 }, // extra-large (rare)
+      { radius: 6,   weight: 3 }, // small
+      { radius: 10,  weight: 4 }, // medium
+      { radius: 15,  weight: 2 }, // large
+      { radius: 20,  weight: 1 }, // extra-large
     ],
 
     /** Peak opacity at the gradient centre, per tier */
