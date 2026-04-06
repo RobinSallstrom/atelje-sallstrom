@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kontakta Ateljé Sällström — vi ser fram emot att höra från dig. Skicka ett meddelande eller följ oss på sociala medier.">
+  <title>Kontakt — Ateljé Sällström</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">Ateljé Sällström</a>
+      <div class="nav__links">
+        <a href="index.html" class="nav__link">Hem</a>
+        <a href="galleri.html" class="nav__link">Galleri</a>
+        <a href="om-oss.html" class="nav__link">Om oss</a>
+        <a href="kontakt.html" class="nav__link active">Kontakt</a>
+      </div>
+      <button class="nav__hamburger" aria-label="Meny">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>Kontakt</h1>
+    <p>Har du frågor, vill boka en visning eller bara säga hej? Vi ser fram emot att höra från dig.</p>
+  </div>
+
+  <hr class="gradient-divider">
+
+  <!-- Contact Section -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <!-- Contact Info -->
+        <div class="contact-info fade-in">
+          <h3>Hör av dig</h3>
+          <p>
+            Vi älskar att prata om konst, samarbeten och utställningar. 
+            Kontakta oss gärna via formuläret eller direkt genom våra kanaler nedan. 
+            Vi svarar så snart vi kan.
+          </p>
+
+          <div class="contact-detail">
+            <div class="contact-detail__icon">
+              <i data-lucide="globe" style="width:20px;height:20px;"></i>
+            </div>
+            <div>
+              <strong>Webbplats</strong><br>
+              <a href="https://ateljesallstrom.se" target="_blank" rel="noopener">www.ateljesallstrom.se</a>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="contact-detail__icon">
+              <i data-lucide="facebook" style="width:20px;height:20px;"></i>
+            </div>
+            <div>
+              <strong>Facebook</strong><br>
+              <a href="https://facebook.com/ateljesallstrom" target="_blank" rel="noopener">facebook.com/ateljesallstrom</a>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="contact-detail__icon">
+              <i data-lucide="instagram" style="width:20px;height:20px;"></i>
+            </div>
+            <div>
+              <strong>Instagram</strong><br>
+              <a href="https://instagram.com/ateljesallstrom" target="_blank" rel="noopener">@ateljesallstrom</a>
+            </div>
+          </div>
+
+          <div class="contact-detail">
+            <div class="contact-detail__icon">
+              <i data-lucide="map-pin" style="width:20px;height:20px;"></i>
+            </div>
+            <div>
+              <strong>Plats</strong><br>
+              <span>Stockholm, Sverige</span>
+            </div>
+          </div>
+
+          <div style="margin-top: 40px; padding: 24px; background: var(--bg-alt); border-radius: 12px; border: 1px solid var(--border);">
+            <h4 style="margin-bottom: 8px; font-size: 1.1rem;">Utställningar & Vernissager</h4>
+            <p style="margin-bottom: 0; font-size: 0.95rem;">
+              Vill du veta mer om kommande utställningar eller boka en privat visning? 
+              Skicka ett meddelande via formuläret så återkommer vi med information.
+            </p>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form fade-in" action="#" method="POST">
+          <div class="form-group">
+            <label for="name">Namn</label>
+            <input type="text" id="name" name="name" placeholder="Ditt namn" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-post</label>
+            <input type="email" id="email" name="email" placeholder="din@epost.se" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Ämne</label>
+            <input type="text" id="subject" name="subject" placeholder="Vad gäller det?">
+          </div>
+          <div class="form-group">
+            <label for="message">Meddelande</label>
+            <textarea id="message" name="message" placeholder="Skriv ditt meddelande här..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            Skicka meddelande
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Map / Location Banner -->
+  <section class="exhibition-banner">
+    <div class="container">
+      <h3>Baserade i Stockholm</h3>
+      <p>
+        Ateljé Sällström är baserat i Stockholm, Sverige. Följ oss på sociala medier 
+        för att hålla dig uppdaterad om var du kan se våra verk nästa gång.
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <h3>Ateljé Sällström</h3>
+          <p>En familjedriven konststudio där tre generationers kreativitet möts. Vi skapar, inspirerar och utvecklas tillsammans.</p>
+        </div>
+        <div>
+          <h4>Sidor</h4>
+          <div class="footer__links">
+            <a href="index.html">Hem</a>
+            <a href="galleri.html">Galleri</a>
+            <a href="om-oss.html">Om oss</a>
+            <a href="kontakt.html">Kontakt</a>
+          </div>
+        </div>
+        <div>
+          <h4>Följ oss</h4>
+          <div class="footer__links">
+            <a href="https://facebook.com/ateljesallstrom" target="_blank" rel="noopener">Facebook</a>
+            <a href="https://instagram.com/ateljesallstrom" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://ateljesallstrom.se" target="_blank" rel="noopener">Portfolio</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; 2026 Ateljé Sällström. Alla rättigheter förbehållna.</span>
+        <div class="footer__bottom-social">
+          <a href="https://facebook.com/ateljesallstrom" target="_blank" rel="noopener" aria-label="Facebook">
+            <i data-lucide="facebook" style="width:18px;height:18px;"></i>
+          </a>
+          <a href="https://instagram.com/ateljesallstrom" target="_blank" rel="noopener" aria-label="Instagram">
+            <i data-lucide="instagram" style="width:18px;height:18px;"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>
