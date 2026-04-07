@@ -12,311 +12,176 @@
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
 
   <style>
-    /* ── Profile image: clickable wrapper ── */
-    .artist-profile__image {
-      cursor: pointer;
-    }
-
-    .artist-profile__image-wrap {
+    /* ── Historia image: clickable wrapper ── */
+    .historia-img-wrap {
       position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      aspect-ratio: 3/4;
-      background: var(--bg-alt);
-    }
-
-    .artist-profile__image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-
-    .artist-profile__image-wrap:hover img {
-      transform: scale(1.03);
-    }
-
-    /* Gallery badge */
-    .profile-gallery-badge {
-      position: absolute;
-      bottom: 14px;
-      right: 14px;
-      background: rgba(250, 249, 247, 0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 20px;
-      padding: 6px 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .profile-gallery-badge svg {
-      width: 13px;
-      height: 13px;
-      color: var(--teal);
-      flex-shrink: 0;
-    }
-
-    .artist-profile__image-wrap:hover .profile-gallery-badge {
-      opacity: 0.85;
-    }
-
-    /* Gradient ring on hover */
-    .artist-profile__image-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 18px;
-      background: var(--gradient-full);
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .artist-profile__image-wrap:hover::before {
-      opacity: 1;
-    }
-
-    /* ── Studio history image ── */
-    .intro__image-wrap {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .intro__image-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      text-align: left;
+      border-radius: 12px;
+      overflow: hidden;
     }
-
-    .intro__image-wrap:hover img {
-      transform: scale(1.03);
-    }
-
-    .intro__image-wrap::after {
+    .historia-img-wrap::before {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 40%;
-      background: linear-gradient(to top, rgba(0,0,0,0.18), transparent);
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      transition: background 0.3s ease;
+      z-index: 1;
+      border-radius: 12px;
       pointer-events: none;
     }
-
-    .studio-gallery-badge {
+    .historia-img-wrap:hover::before {
+      background: rgba(0, 0, 0, 0.12);
+    }
+    .historia-img-badge {
       position: absolute;
       bottom: 14px;
       right: 14px;
-      background: rgba(250, 249, 247, 0.92);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-radius: 20px;
-      padding: 6px 14px;
+      z-index: 2;
       display: flex;
       align-items: center;
       gap: 6px;
+      background: rgba(0, 0, 0, 0.52);
+      color: #fff;
       font-family: var(--font-body);
       font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 6px 11px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
       pointer-events: none;
-      z-index: 2;
+      transition: background 0.3s ease;
     }
-
-    .studio-gallery-badge svg {
-      width: 13px;
-      height: 13px;
-      color: var(--teal);
+    .historia-img-wrap:hover .historia-img-badge {
+      background: rgba(42, 173, 193, 0.82);
+    }
+    .historia-img-badge svg {
+      width: 14px;
+      height: 14px;
       flex-shrink: 0;
     }
 
-    /* ── About-page lightbox ── */
-    .about-lightbox {
+    /* ── Historia lightbox overlay ── */
+    #historia-lightbox {
       position: fixed;
       inset: 0;
       z-index: 3000;
-      background: rgba(10, 10, 10, 0.93);
+      background: rgba(0, 0, 0, 0.93);
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s ease;
+      transition: opacity 0.3s ease;
     }
-
-    .about-lightbox.active {
+    #historia-lightbox.active {
       opacity: 1;
       pointer-events: all;
     }
-
-    .about-lightbox__inner {
-      position: relative;
+    #historia-lightbox .hl-img {
       max-width: 90vw;
-      max-height: 90vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .about-lightbox__img {
-      max-width: 88vw;
-      max-height: 78vh;
+      max-height: 85vh;
       object-fit: contain;
-      border-radius: 10px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      border-radius: 8px;
       display: block;
     }
-
-    .about-lightbox__caption {
-      margin-top: 18px;
-      text-align: center;
-    }
-
-    .about-lightbox__caption h4 {
-      font-family: var(--font-heading);
-      font-size: 1.25rem;
-      color: #fff;
-      margin-bottom: 4px;
-    }
-
-    .about-lightbox__caption span {
-      font-family: var(--font-body);
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.6);
-    }
-
-    /* Dots */
-    .about-lightbox__dots {
-      display: flex;
-      gap: 8px;
-      margin-top: 16px;
-      justify-content: center;
-    }
-
-    .about-lightbox__dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.3);
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
-      border: none;
-      padding: 0;
-    }
-
-    .about-lightbox__dot.active {
-      background: #fff;
-      transform: scale(1.3);
-    }
-
-    /* Close button */
-    .about-lightbox__close {
-      position: fixed;
-      top: 20px;
+    #historia-lightbox .hl-close {
+      position: absolute;
+      top: 24px;
       right: 24px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.1);
       border: none;
+      border-radius: 50%;
       color: #fff;
       font-size: 1.5rem;
-      line-height: 1;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s ease;
-      z-index: 3001;
+      transition: background 0.3s ease;
+      z-index: 10;
     }
-
-    .about-lightbox__close:hover {
-      background: rgba(255,255,255,0.22);
-    }
-
-    /* Prev / Next */
-    .about-lightbox__nav {
-      position: fixed;
+    #historia-lightbox .hl-close:hover { background: rgba(255,255,255,0.22); }
+    #historia-lightbox .hl-nav {
+      position: absolute;
       top: 50%;
       transform: translateY(-50%);
       width: 48px;
       height: 48px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
       border: none;
+      border-radius: 50%;
       color: #fff;
-      font-size: 1.6rem;
-      line-height: 1;
+      font-size: 1.2rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: background 0.2s ease;
-      z-index: 3001;
+      transition: background 0.3s ease;
+      z-index: 10;
     }
-
-    .about-lightbox__nav:hover {
-      background: rgba(255,255,255,0.22);
-    }
-
-    .about-lightbox__nav--prev { left: 20px; }
-    .about-lightbox__nav--next { right: 20px; }
-
-    /* Counter */
-    .about-lightbox__counter {
-      position: fixed;
-      top: 24px;
+    #historia-lightbox .hl-nav:hover { background: rgba(255,255,255,0.22); }
+    #historia-lightbox .hl-nav--prev { left: 24px; }
+    #historia-lightbox .hl-nav--next { right: 24px; }
+    #historia-lightbox .hl-info {
+      position: absolute;
+      bottom: 52px;
       left: 50%;
       transform: translateX(-50%);
-      font-family: var(--font-body);
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.55);
-      letter-spacing: 0.06em;
-      z-index: 3001;
-    }
-
-    /* Artist name badge in lightbox */
-    .about-lightbox__artist-tag {
-      position: fixed;
-      top: 20px;
-      left: 24px;
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #9BE1E5, #2AADC1);
+      text-align: center;
       color: #fff;
-      z-index: 3001;
+      white-space: nowrap;
     }
-
+    #historia-lightbox .hl-info__caption {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    #historia-lightbox .hl-info__counter {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+    }
+    #historia-lightbox .hl-dots {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+    }
+    #historia-lightbox .hl-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+    #historia-lightbox .hl-dot.active {
+      background: var(--teal);
+      transform: scale(1.3);
+    }
     @media (max-width: 600px) {
-      .about-lightbox__nav { display: none; }
-      .about-lightbox__img {
-        max-width: 95vw;
-        max-height: 65vh;
-      }
+      #historia-lightbox .hl-nav { display: none; }
     }
   </style>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
 </head>
 <body>
 
@@ -351,20 +216,23 @@
     <div class="container">
       <div class="intro fade-in">
         <div class="intro__image">
-          <!-- Studio history image — click to open lightbox -->
-          <div class="intro__image-wrap"
-               data-gallery="studio"
-               data-index="0"
-               role="button"
-               tabindex="0"
-               aria-label="Se fler bilder från ateljén">
+          <!-- Clickable wrapper — opens the historia lightbox gallery -->
+          <button class="historia-img-wrap"
+                  id="historia-trigger"
+                  aria-label="Visa bildgalleri från ateljén"
+                  title="Klicka för att se fler bilder">
             <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop"
                  alt="Ateljé Sällström studio" loading="lazy">
-            <div class="studio-gallery-badge">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span class="historia-img-badge" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
               +3 foton
-            </div>
-          </div>
+            </span>
+          </button>
         </div>
         <div class="intro__text">
           <h2>Vår historia</h2>
@@ -402,20 +270,9 @@
 
       <!-- Lennart -->
       <div class="artist-profile fade-in">
-        <div class="artist-profile__image"
-             data-gallery="lennart"
-             data-index="0"
-             role="button"
-             tabindex="0"
-             aria-label="Se fler bilder av Lennart Sällström">
-          <div class="artist-profile__image-wrap">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=667&fit=crop&crop=face"
-                 alt="Lennart Sällström" loading="lazy">
-            <div class="profile-gallery-badge">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              +4 foton
-            </div>
-          </div>
+        <div class="artist-profile__image">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=667&fit=crop&crop=face" 
+               alt="Lennart Sällström" loading="lazy">
         </div>
         <div class="artist-profile__content">
           <h3>Lennart Sällström</h3>
@@ -448,20 +305,9 @@
 
       <!-- Robin -->
       <div class="artist-profile fade-in">
-        <div class="artist-profile__image"
-             data-gallery="robin"
-             data-index="0"
-             role="button"
-             tabindex="0"
-             aria-label="Se fler bilder av Robin Sällström">
-          <div class="artist-profile__image-wrap">
-            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=667&fit=crop&crop=face"
-                 alt="Robin Sällström" loading="lazy">
-            <div class="profile-gallery-badge">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              +4 foton
-            </div>
-          </div>
+        <div class="artist-profile__image">
+          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=667&fit=crop&crop=face" 
+               alt="Robin Sällström" loading="lazy">
         </div>
         <div class="artist-profile__content">
           <h3>Robin Sällström</h3>
@@ -494,20 +340,9 @@
 
       <!-- Ninni -->
       <div class="artist-profile fade-in">
-        <div class="artist-profile__image"
-             data-gallery="ninni"
-             data-index="0"
-             role="button"
-             tabindex="0"
-             aria-label="Se fler bilder av Ninni Sällström">
-          <div class="artist-profile__image-wrap">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=667&fit=crop&crop=face"
-                 alt="Ninni Sällström" loading="lazy">
-            <div class="profile-gallery-badge">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-              +4 foton
-            </div>
-          </div>
+        <div class="artist-profile__image">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=667&fit=crop&crop=face" 
+               alt="Ninni Sällström" loading="lazy">
         </div>
         <div class="artist-profile__content">
           <h3>Ninni Sällström</h3>
@@ -622,266 +457,113 @@
     </div>
   </footer>
 
-  <!-- About-page lightbox overlay -->
-  <div class="about-lightbox" id="aboutLightbox" role="dialog" aria-modal="true" aria-label="Bildgalleri">
-    <button class="about-lightbox__close" id="aboutLbClose" aria-label="Stäng">&times;</button>
-    <button class="about-lightbox__nav about-lightbox__nav--prev" id="aboutLbPrev" aria-label="Föregående">&#8249;</button>
-    <button class="about-lightbox__nav about-lightbox__nav--next" id="aboutLbNext" aria-label="Nästa">&#8250;</button>
-    <div class="about-lightbox__counter" id="aboutLbCounter"></div>
-    <div class="about-lightbox__artist-tag" id="aboutLbArtistTag"></div>
-    <div class="about-lightbox__inner">
-      <img class="about-lightbox__img" id="aboutLbImg" src="" alt="">
-      <div class="about-lightbox__caption">
-        <h4 id="aboutLbTitle"></h4>
-        <span id="aboutLbDesc"></span>
-      </div>
-      <div class="about-lightbox__dots" id="aboutLbDots"></div>
+  <!-- ── Historia Lightbox ── -->
+  <div id="historia-lightbox" role="dialog" aria-modal="true" aria-label="Bildgalleri — Vår historia">
+    <button class="hl-close" id="hl-close" aria-label="Stäng galleri">&#x2715;</button>
+    <button class="hl-nav hl-nav--prev" id="hl-prev" aria-label="Föregående bild">&#8592;</button>
+    <img class="hl-img" id="hl-img" src="" alt="">
+    <button class="hl-nav hl-nav--next" id="hl-next" aria-label="Nästa bild">&#8594;</button>
+    <div class="hl-info">
+      <div class="hl-info__caption" id="hl-caption"></div>
+      <div class="hl-info__counter" id="hl-counter"></div>
     </div>
+    <div class="hl-dots" id="hl-dots"></div>
   </div>
 
   <script src="js/main.js"></script>
   <script>lucide.createIcons();</script>
 
+  <!-- Historia gallery script (isolated — does not touch artist profile images) -->
   <script>
-  (function () {
-    'use strict';
+    (function () {
+      var images = [
+        {
+          src: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200&h=900&fit=crop',
+          alt: 'Atelj\u00e9 S\u00e4llstr\u00f6m studio',
+          caption: 'V\u00e5r atelj\u00e9'
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&h=900&fit=crop',
+          alt: 'Konstn\u00e4r m\u00e5lar i atelj\u00e9n',
+          caption: 'I skapandets stund'
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=900&fit=crop',
+          alt: 'Familjen arbetar tillsammans i atelj\u00e9n',
+          caption: 'Familjen skapar tillsammans'
+        },
+        {
+          src: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=1200&h=900&fit=crop',
+          alt: 'Vernissage \u2014 konstverk p\u00e5 v\u00e4gg',
+          caption: 'Vernissage p\u00e5 Gregers Konstgalleri'
+        }
+      ];
 
-    /* ── Gallery data ── */
-    var GALLERIES = {
-      studio: {
-        artist: 'Ateljé Sällström',
-        images: [
-          {
-            src: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200&h=900&fit=crop',
-            title: 'Vår ateljé',
-            desc: 'Hjärtat i Ateljé Sällström — där vi skapar tillsammans'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&h=900&fit=crop',
-            title: 'Skapandets stund',
-            desc: 'Penslar, färger och fantasi i samspel'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1200&h=900&fit=crop',
-            title: 'Vernissage',
-            desc: 'Gregers Konstgalleri, Hornsgatan 46, Stockholm'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1531913223931-b0d3198229ee?w=1200&h=900&fit=crop',
-            title: 'Konst på vägg',
-            desc: 'Verk från kollektivets senaste utställning'
-          }
-        ]
-      },
-      lennart: {
-        artist: 'Lennart Sällström',
-        images: [
-          {
-            src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=1200&fit=crop&crop=face',
-            title: 'Lennart Sällström',
-            desc: 'Pappan och grundaren av Ateljé Sällström'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200&h=900&fit=crop',
-            title: 'Stadslandskap i akryl',
-            desc: 'Lennarts signaturteknik — starka färger och urbana motiv'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&h=900&fit=crop',
-            title: 'Södermalm',
-            desc: 'Stadsdelen som inspirerar Lennarts konstnärliga vision'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1200&h=900&fit=crop',
-            title: 'Akrylmåleri',
-            desc: 'Processen bakom Lennarts livfulla kompositioner'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1200&h=900&fit=crop',
-            title: 'Stockholms siluett',
-            desc: 'Broar, byggnader och gator i färgstark tolkning'
-          }
-        ]
-      },
-      robin: {
-        artist: 'Robin Sällström',
-        images: [
-          {
-            src: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=900&h=1200&fit=crop&crop=face',
-            title: 'Robin Sällström',
-            desc: 'Digital konstnär och filmskapare'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=900&fit=crop',
-            title: 'Digital komposition',
-            desc: 'Robins arbete i skärningspunkten mellan teknik och konst'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&h=900&fit=crop',
-            title: 'Fotografisk vision',
-            desc: 'Fotografi som konstnärligt uttrycksmedel'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1536240478700-b869ad10e2ab?w=1200&h=900&fit=crop',
-            title: 'Filmberättande',
-            desc: 'Rörlig bild som en del av Robins konstnärliga process'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&h=900&fit=crop',
-            title: 'Digital världsbygge',
-            desc: 'Skapandet av visuella universum med digitala verktyg'
-          }
-        ]
-      },
-      ninni: {
-        artist: 'Ninni Sällström',
-        images: [
-          {
-            src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=900&h=1200&fit=crop&crop=face',
-            title: 'Ninni Sällström',
-            desc: 'Konstnär, fotograf och kreativ skribent'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1576085898323-218337e3e43c?w=1200&h=900&fit=crop',
-            title: 'Akryl pouring',
-            desc: 'Ninnins abstrakta målningar — färg i fri rörelse'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=1200&h=900&fit=crop',
-            title: 'Naturfotografi',
-            desc: 'Naturens detaljer fångade med ett känsligt öga'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1200&h=900&fit=crop',
-            title: 'Organiska mönster',
-            desc: 'Kosmiska kompositioner inspirerade av naturens egna former'
-          },
-          {
-            src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=900&fit=crop',
-            title: 'Kreativt skrivande',
-            desc: 'Berättande som en förlängning av det visuella'
-          }
-        ]
+      var current  = 0;
+      var lb       = document.getElementById('historia-lightbox');
+      var img      = document.getElementById('hl-img');
+      var caption  = document.getElementById('hl-caption');
+      var counter  = document.getElementById('hl-counter');
+      var dotsEl   = document.getElementById('hl-dots');
+      var trigger  = document.getElementById('historia-trigger');
+      var closeBtn = document.getElementById('hl-close');
+      var prevBtn  = document.getElementById('hl-prev');
+      var nextBtn  = document.getElementById('hl-next');
+
+      // Build dot buttons
+      images.forEach(function (_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'hl-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Bild ' + (i + 1));
+        dot.addEventListener('click', function () { goTo(i); });
+        dotsEl.appendChild(dot);
+      });
+
+      function getDots() { return dotsEl.querySelectorAll('.hl-dot'); }
+
+      function goTo(index) {
+        current = (index + images.length) % images.length;
+        var item = images[current];
+        img.src = item.src;
+        img.alt = item.alt;
+        caption.textContent = item.caption;
+        counter.textContent = (current + 1) + ' / ' + images.length;
+        getDots().forEach(function (d, i) {
+          d.classList.toggle('active', i === current);
+        });
       }
-    };
 
-    /* ── DOM refs ── */
-    var lb        = document.getElementById('aboutLightbox');
-    var lbImg     = document.getElementById('aboutLbImg');
-    var lbTitle   = document.getElementById('aboutLbTitle');
-    var lbDesc    = document.getElementById('aboutLbDesc');
-    var lbCounter = document.getElementById('aboutLbCounter');
-    var lbTag     = document.getElementById('aboutLbArtistTag');
-    var lbDots    = document.getElementById('aboutLbDots');
-    var lbClose   = document.getElementById('aboutLbClose');
-    var lbPrev    = document.getElementById('aboutLbPrev');
-    var lbNext    = document.getElementById('aboutLbNext');
+      function open() {
+        goTo(0);
+        lb.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+      }
 
-    var currentGallery = null;
-    var currentIndex   = 0;
+      function close() {
+        lb.classList.remove('active');
+        document.body.style.overflow = '';
+        trigger.focus();
+      }
 
-    /* ── Render ── */
-    function renderDots(gallery, idx) {
-      lbDots.innerHTML = '';
-      gallery.images.forEach(function (_, i) {
-        var btn = document.createElement('button');
-        btn.className = 'about-lightbox__dot' + (i === idx ? ' active' : '');
-        btn.setAttribute('aria-label', 'Bild ' + (i + 1));
-        btn.addEventListener('click', function (e) {
-          e.stopPropagation();
-          goTo(i);
-        });
-        lbDots.appendChild(btn);
+      trigger.addEventListener('click', open);
+      closeBtn.addEventListener('click', close);
+      prevBtn.addEventListener('click', function () { goTo(current - 1); });
+      nextBtn.addEventListener('click', function () { goTo(current + 1); });
+
+      // Close on backdrop click
+      lb.addEventListener('click', function (e) {
+        if (e.target === lb) close();
       });
-    }
 
-    function showSlide(gallery, idx) {
-      var item = gallery.images[idx];
-      lbImg.src   = item.src;
-      lbImg.alt   = item.title;
-      lbTitle.textContent   = item.title;
-      lbDesc.textContent    = item.desc;
-      lbTag.textContent     = gallery.artist;
-      lbCounter.textContent = (idx + 1) + ' / ' + gallery.images.length;
-
-      // Update dots
-      var dots = lbDots.querySelectorAll('.about-lightbox__dot');
-      dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
-
-      // Hide nav if only one image
-      var single = gallery.images.length <= 1;
-      lbPrev.style.display = single ? 'none' : '';
-      lbNext.style.display = single ? 'none' : '';
-    }
-
-    function openLightbox(galleryKey, startIndex) {
-      currentGallery = GALLERIES[galleryKey];
-      currentIndex   = startIndex || 0;
-      if (!currentGallery) return;
-
-      renderDots(currentGallery, currentIndex);
-      showSlide(currentGallery, currentIndex);
-      lb.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      lb.classList.remove('active');
-      document.body.style.overflow = '';
-      currentGallery = null;
-    }
-
-    function goTo(idx) {
-      if (!currentGallery) return;
-      currentIndex = (idx + currentGallery.images.length) % currentGallery.images.length;
-      showSlide(currentGallery, currentIndex);
-    }
-
-    /* ── Bind trigger elements ── */
-    function bindTriggers() {
-      var triggers = document.querySelectorAll('[data-gallery]');
-      triggers.forEach(function (el) {
-        var key   = el.getAttribute('data-gallery');
-        var start = parseInt(el.getAttribute('data-index') || '0', 10);
-
-        function activate() { openLightbox(key, start); }
-
-        el.addEventListener('click',   activate);
-        el.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
-        });
+      // Keyboard navigation
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('active')) return;
+        if (e.key === 'Escape')     close();
+        if (e.key === 'ArrowRight') goTo(current + 1);
+        if (e.key === 'ArrowLeft')  goTo(current - 1);
       });
-    }
-
-    /* ── Lightbox controls ── */
-    lbClose.addEventListener('click', closeLightbox);
-    lbPrev.addEventListener('click',  function () { goTo(currentIndex - 1); });
-    lbNext.addEventListener('click',  function () { goTo(currentIndex + 1); });
-
-    lb.addEventListener('click', function (e) {
-      if (e.target === lb) closeLightbox();
-    });
-
-    document.addEventListener('keydown', function (e) {
-      if (!lb.classList.contains('active')) return;
-      if (e.key === 'Escape')     closeLightbox();
-      if (e.key === 'ArrowRight') goTo(currentIndex + 1);
-      if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
-    });
-
-    /* ── Touch swipe ── */
-    var touchStartX = 0;
-    lb.addEventListener('touchstart', function (e) {
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-    lb.addEventListener('touchend', function (e) {
-      var dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 50) goTo(currentIndex + (dx < 0 ? 1 : -1));
-    }, { passive: true });
-
-    /* ── Init ── */
-    bindTriggers();
-  })();
+    })();
   </script>
 </body>
 </html>
