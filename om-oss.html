@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Om oss — Lär känna konstnärerna bakom Ateljé Sällström: Lennart, Robin och Ninni Sällström.">
+  <meta name="description"
+    content="Om oss — Lär känna konstnärerna bakom Ateljé Sällström: Lennart, Robin och Ninni Sällström.">
   <title>Om oss — Ateljé Sällström</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
 
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="css/style.css">
@@ -28,6 +32,7 @@
       border-radius: 12px;
       overflow: hidden;
     }
+
     .historia-img-wrap::before {
       content: '';
       position: absolute;
@@ -38,9 +43,11 @@
       border-radius: 12px;
       pointer-events: none;
     }
+
     .historia-img-wrap:hover::before {
       background: rgba(0, 0, 0, 0.12);
     }
+
     .historia-img-badge {
       position: absolute;
       bottom: 14px;
@@ -61,9 +68,11 @@
       pointer-events: none;
       transition: background 0.3s ease;
     }
+
     .historia-img-wrap:hover .historia-img-badge {
       background: rgba(42, 173, 193, 0.82);
     }
+
     .historia-img-badge svg {
       width: 14px;
       height: 14px;
@@ -83,10 +92,12 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
+
     #historia-lightbox.active {
       opacity: 1;
       pointer-events: all;
     }
+
     #historia-lightbox .hl-img {
       max-width: 90vw;
       max-height: 85vh;
@@ -94,6 +105,7 @@
       border-radius: 8px;
       display: block;
     }
+
     #historia-lightbox .hl-close {
       position: absolute;
       top: 24px;
@@ -112,7 +124,11 @@
       transition: background 0.3s ease;
       z-index: 10;
     }
-    #historia-lightbox .hl-close:hover { background: rgba(255,255,255,0.22); }
+
+    #historia-lightbox .hl-close:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
     #historia-lightbox .hl-nav {
       position: absolute;
       top: 50%;
@@ -131,9 +147,19 @@
       transition: background 0.3s ease;
       z-index: 10;
     }
-    #historia-lightbox .hl-nav:hover { background: rgba(255,255,255,0.22); }
-    #historia-lightbox .hl-nav--prev { left: 24px; }
-    #historia-lightbox .hl-nav--next { right: 24px; }
+
+    #historia-lightbox .hl-nav:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    #historia-lightbox .hl-nav--prev {
+      left: 24px;
+    }
+
+    #historia-lightbox .hl-nav--next {
+      right: 24px;
+    }
+
     #historia-lightbox .hl-info {
       position: absolute;
       bottom: 52px;
@@ -143,17 +169,20 @@
       color: #fff;
       white-space: nowrap;
     }
+
     #historia-lightbox .hl-info__caption {
       font-family: var(--font-heading);
       font-size: 1.1rem;
       font-weight: 400;
       margin-bottom: 4px;
     }
+
     #historia-lightbox .hl-info__counter {
       font-family: var(--font-body);
       font-size: 0.85rem;
-      color: rgba(255,255,255,0.65);
+      color: rgba(255, 255, 255, 0.65);
     }
+
     #historia-lightbox .hl-dots {
       position: absolute;
       bottom: 24px;
@@ -162,27 +191,34 @@
       display: flex;
       gap: 8px;
     }
+
     #historia-lightbox .hl-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.35);
+      background: rgba(255, 255, 255, 0.35);
       border: none;
       cursor: pointer;
       padding: 0;
       transition: background 0.25s ease, transform 0.25s ease;
     }
+
     #historia-lightbox .hl-dot.active {
       background: var(--teal);
       transform: scale(1.3);
     }
+
     @media (max-width: 600px) {
-      #historia-lightbox .hl-nav { display: none; }
+      #historia-lightbox .hl-nav {
+        display: none;
+      }
     }
   </style>
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
 </head>
+
 <body>
 
   <!-- Navigation -->
@@ -217,18 +253,15 @@
       <div class="intro fade-in">
         <div class="intro__image">
           <!-- Clickable wrapper — opens the historia lightbox gallery -->
-          <button class="historia-img-wrap"
-                  id="historia-trigger"
-                  aria-label="Visa bildgalleri från ateljén"
-                  title="Klicka för att se fler bilder">
-            <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop"
-                 alt="Ateljé Sällström studio" loading="lazy">
+          <button class="historia-img-wrap" id="historia-trigger" aria-label="Visa bildgalleri från ateljén"
+            title="Klicka för att se fler bilder">
+            <img src="images/familjen04.jpeg" alt="Ateljé Sällström studio" loading="lazy">
             <span class="historia-img-badge" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                <circle cx="8.5" cy="8.5" r="1.5"/>
-                <polyline points="21 15 16 10 5 21"/>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                <circle cx="8.5" cy="8.5" r="1.5" />
+                <polyline points="21 15 16 10 5 21" />
               </svg>
               +3 foton
             </span>
@@ -237,19 +270,19 @@
         <div class="intro__text">
           <h2>Vår historia</h2>
           <p>
-            Ateljé Sällström skapades för ett par år sedan när familjen enades om att göra 
-            något kreativt tillsammans efter år av arbete till och tillsammans med andra aktörer. 
-            Det som började som en gemensam idé har vuxit till en levande konststudio där tre 
+            Ateljé Sällström skapades för ett par år sedan när familjen enades om att göra
+            något kreativt tillsammans efter år av arbete till och tillsammans med andra aktörer.
+            Det som började som en gemensam idé har vuxit till en levande konststudio där tre
             unika konstnärliga röster möts och inspirerar varandra.
           </p>
           <p>
-            Vårt mål och syfte är att bibehålla en gemenskap och umgänge och därifrån utveckla, 
-            inspirera och skapa tillsammans. Varje verk som lämnar vår ateljé bär med sig en bit 
+            Vårt mål och syfte är att bibehålla en gemenskap och umgänge och därifrån utveckla,
+            inspirera och skapa tillsammans. Varje verk som lämnar vår ateljé bär med sig en bit
             av vår gemensamma historia — och den individuella passionen hos var och en av oss.
           </p>
           <p>
-            Vi har ställt ut våra verk på flera platser, bland annat på Gregers Konstgalleri 
-            på Hornsgatan i Stockholm, och vi ser ständigt fram emot nya möjligheter att dela 
+            Vi har ställt ut våra verk på flera platser, bland annat på Gregers Konstgalleri
+            på Hornsgatan i Stockholm, och vi ser ständigt fram emot nya möjligheter att dela
             vår konst med världen.
           </p>
         </div>
@@ -271,27 +304,26 @@
       <!-- Lennart -->
       <div class="artist-profile fade-in">
         <div class="artist-profile__image">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=667&fit=crop&crop=face" 
-               alt="Lennart Sällström" loading="lazy">
+          <img src="images/lennart-portrait.jpg" alt="Lennart Sällström" loading="lazy">
         </div>
         <div class="artist-profile__content">
           <h3>Lennart Sällström</h3>
           <span class="artist-profile__role">Pappan i Ateljé Sällström</span>
           <p>
-            Lennart är pappan i Ateljé Sällström och hjärtat bakom kollektivets konstnärliga 
-            arv. Han målar i akryl med starka, livfulla färger där rött ofta utgör basen i hans 
-            kompositioner. Hans verk genomsyras av en djup koppling till Stockholm och framför 
+            Lennart är pappan i Ateljé Sällström och hjärtat bakom kollektivets konstnärliga
+            arv. Han målar i akryl med starka, livfulla färger där rött ofta utgör basen i hans
+            kompositioner. Hans verk genomsyras av en djup koppling till Stockholm och framför
             allt Södermalm, stadsdelen där han växte upp.
           </p>
           <p>
-            Med en bakgrund som lärare med bild och form som grund har Lennart en naturlig 
-            förmåga att förmedla känsla och berättelse genom sina målningar. Hans stadstavlor 
-            fångar Stockholms arkitektur och atmosfär med en energi och värme som speglar hans 
+            Med en bakgrund som lärare med bild och form som grund har Lennart en naturlig
+            förmåga att förmedla känsla och berättelse genom sina målningar. Hans stadstavlor
+            fångar Stockholms arkitektur och atmosfär med en energi och värme som speglar hans
             personliga relation till platsen.
           </p>
           <p>
-            Lennarts konst är en hyllning till det urbana landskapet — färgstarka silhuetter 
-            av byggnader, broar och gator som vibrerar av liv. Varje målning är en inbjudan 
+            Lennarts konst är en hyllning till det urbana landskapet — färgstarka silhuetter
+            av byggnader, broar och gator som vibrerar av liv. Varje målning är en inbjudan
             att se staden genom hans ögon.
           </p>
           <div class="artist-profile__mediums">
@@ -306,27 +338,26 @@
       <!-- Robin -->
       <div class="artist-profile fade-in">
         <div class="artist-profile__image">
-          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=667&fit=crop&crop=face" 
-               alt="Robin Sällström" loading="lazy">
+          <img src="images/robin-portrait.jpg" alt="Robin Sällström" loading="lazy">
         </div>
         <div class="artist-profile__content">
           <h3>Robin Sällström</h3>
           <span class="artist-profile__role">Sonen i Ateljé Sällström</span>
           <p>
-            Robin är den digitala konstnären och filmskaparen i Ateljé Sällström. Utbildad 
-            inom design och media har han utvecklat en unik konstnärlig röst som lever i 
-            skärningspunkten mellan teknik och kreativitet. Hans verk utforskar gränslandet 
+            Robin är den digitala konstnären och filmskaparen i Ateljé Sällström. Utbildad
+            inom design och media har han utvecklat en unik konstnärlig röst som lever i
+            skärningspunkten mellan teknik och kreativitet. Hans verk utforskar gränslandet
             mellan det verkliga och det digitala.
           </p>
           <p>
-            Med hjälp av film, fotografier och olika sorters digitala medel skapar Robin 
-            unika och spännande konstverk som utmanar betraktarens perception. Hans 
-            kollektioner som "Interstellar Dreams" visar på en förmåga att skapa visuella 
+            Med hjälp av film, fotografier och olika sorters digitala medel skapar Robin
+            unika och spännande konstverk som utmanar betraktarens perception. Hans
+            kollektioner som "Interstellar Dreams" visar på en förmåga att skapa visuella
             världar som är både drömska och tekniskt imponerande.
           </p>
           <p>
-            Robins arbete representerar den moderna dimensionen av Ateljé Sällström — en 
-            brygga mellan traditionell konst och samtida digital expression. Hans kreativa 
+            Robins arbete representerar den moderna dimensionen av Ateljé Sällström — en
+            brygga mellan traditionell konst och samtida digital expression. Hans kreativa
             process involverar ofta experimentering med nya verktyg och tekniker.
           </p>
           <div class="artist-profile__mediums">
@@ -341,27 +372,26 @@
       <!-- Ninni -->
       <div class="artist-profile fade-in">
         <div class="artist-profile__image">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=667&fit=crop&crop=face" 
-               alt="Ninni Sällström" loading="lazy">
+          <img src="images/ninni-portrait.jpg" alt="Ninni Sällström" loading="lazy">
         </div>
         <div class="artist-profile__content">
           <h3>Ninni Sällström</h3>
           <span class="artist-profile__role">Dottern i Ateljé Sällström</span>
           <p>
-            Ninni är dottern i Ateljé Sällström och en konstnär med en rik fantasi som 
-            tar sig uttryck i flera kreativa former. Hennes konstnärliga resa började med 
-            naturfotografier — poetiska bilder som fångar naturens skönhet och detaljer med 
+            Ninni är dottern i Ateljé Sällström och en konstnär med en rik fantasi som
+            tar sig uttryck i flera kreativa former. Hennes konstnärliga resa började med
+            naturfotografier — poetiska bilder som fångar naturens skönhet och detaljer med
             ett känsligt öga.
           </p>
           <p>
-            På de senaste åren har Ninni fokuserat alltmer på abstrakta målningar i akryl 
-            med den fascinerande pouring-tekniken. Genom att låta färgerna flöda fritt skapar 
-            hon organiska, nästan kosmiska kompositioner som påminner om naturens egna mönster 
+            På de senaste åren har Ninni fokuserat alltmer på abstrakta målningar i akryl
+            med den fascinerande pouring-tekniken. Genom att låta färgerna flöda fritt skapar
+            hon organiska, nästan kosmiska kompositioner som påminner om naturens egna mönster
             — vattenvirvlar, molnformationer och geologiska strukturer.
           </p>
           <p>
-            Utöver bildkonst ägnar sig Ninni även åt kreativt skrivande, vilket ger hennes 
-            visuella verk en extra dimension av berättande. Hennes konst är en dialog mellan 
+            Utöver bildkonst ägnar sig Ninni även åt kreativt skrivande, vilket ger hennes
+            visuella verk en extra dimension av berättande. Hennes konst är en dialog mellan
             kontroll och slump, mellan det planerade och det spontana.
           </p>
           <div class="artist-profile__mediums">
@@ -386,16 +416,19 @@
       </div>
 
       <div style="max-width: 700px; margin: 0 auto;" class="fade-in">
-        <div style="display: flex; align-items: flex-start; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border);">
+        <div
+          style="display: flex; align-items: flex-start; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border);">
           <div style="min-width: 80px; text-align: right;">
             <span style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--teal);">2024</span>
           </div>
           <div>
             <h4 style="margin-bottom: 4px;">Gregers Konstgalleri</h4>
-            <p style="margin-bottom: 0; font-size: 0.95rem;">Hornsgatan 46, Stockholm. Vernissage med verk från alla tre konstnärer.</p>
+            <p style="margin-bottom: 0; font-size: 0.95rem;">Hornsgatan 46, Stockholm. Vernissage med verk från alla tre
+              konstnärer.</p>
           </div>
         </div>
-        <div style="display: flex; align-items: flex-start; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border);">
+        <div
+          style="display: flex; align-items: flex-start; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--border);">
           <div style="min-width: 80px; text-align: right;">
             <span style="font-family: var(--font-heading); font-size: 1.4rem; color: var(--teal);">2023</span>
           </div>
@@ -410,7 +443,8 @@
           </div>
           <div>
             <h4 style="margin-bottom: 4px;">Ateljé Sällström grundas</h4>
-            <p style="margin-bottom: 0; font-size: 0.95rem;">Familjen beslutar att förena sina kreativa krafter under ett gemensamt namn.</p>
+            <p style="margin-bottom: 0; font-size: 0.95rem;">Familjen beslutar att förena sina kreativa krafter under
+              ett gemensamt namn.</p>
           </div>
         </div>
       </div>
@@ -423,7 +457,8 @@
       <div class="footer__inner">
         <div class="footer__brand">
           <h3>Ateljé Sällström</h3>
-          <p>En familjedriven konststudio där tre generationers kreativitet möts. Vi skapar, inspirerar och utvecklas tillsammans.</p>
+          <p>En familjedriven konststudio där tre generationers kreativitet möts. Vi skapar, inspirerar och utvecklas
+            tillsammans.</p>
         </div>
         <div>
           <h4>Sidor</h4>
@@ -478,37 +513,37 @@
     (function () {
       var images = [
         {
-          src: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200&h=900&fit=crop',
+          src: 'images/familjen04.jpeg',
           alt: 'Atelj\u00e9 S\u00e4llstr\u00f6m studio',
           caption: 'V\u00e5r atelj\u00e9'
         },
         {
-          src: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&h=900&fit=crop',
+          src: 'images/familjen02.jpeg',
           alt: 'Konstn\u00e4r m\u00e5lar i atelj\u00e9n',
           caption: 'I skapandets stund'
         },
         {
-          src: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=900&fit=crop',
+          src: 'images/familjen03.jpeg',
           alt: 'Familjen arbetar tillsammans i atelj\u00e9n',
           caption: 'Familjen skapar tillsammans'
         },
         {
-          src: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=1200&h=900&fit=crop',
+          src: 'images/studio.jpeg',
           alt: 'Vernissage \u2014 konstverk p\u00e5 v\u00e4gg',
           caption: 'Vernissage p\u00e5 Gregers Konstgalleri'
         }
       ];
 
-      var current  = 0;
-      var lb       = document.getElementById('historia-lightbox');
-      var img      = document.getElementById('hl-img');
-      var caption  = document.getElementById('hl-caption');
-      var counter  = document.getElementById('hl-counter');
-      var dotsEl   = document.getElementById('hl-dots');
-      var trigger  = document.getElementById('historia-trigger');
+      var current = 0;
+      var lb = document.getElementById('historia-lightbox');
+      var img = document.getElementById('hl-img');
+      var caption = document.getElementById('hl-caption');
+      var counter = document.getElementById('hl-counter');
+      var dotsEl = document.getElementById('hl-dots');
+      var trigger = document.getElementById('historia-trigger');
       var closeBtn = document.getElementById('hl-close');
-      var prevBtn  = document.getElementById('hl-prev');
-      var nextBtn  = document.getElementById('hl-next');
+      var prevBtn = document.getElementById('hl-prev');
+      var nextBtn = document.getElementById('hl-next');
 
       // Build dot buttons
       images.forEach(function (_, i) {
@@ -559,11 +594,12 @@
       // Keyboard navigation
       document.addEventListener('keydown', function (e) {
         if (!lb.classList.contains('active')) return;
-        if (e.key === 'Escape')     close();
+        if (e.key === 'Escape') close();
         if (e.key === 'ArrowRight') goTo(current + 1);
-        if (e.key === 'ArrowLeft')  goTo(current - 1);
+        if (e.key === 'ArrowLeft') goTo(current - 1);
       });
     })();
   </script>
 </body>
+
 </html>
