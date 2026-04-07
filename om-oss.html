@@ -13,6 +13,310 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="css/style.css">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+
+  <style>
+    /* ── Profile image: clickable wrapper ── */
+    .artist-profile__image {
+      cursor: pointer;
+    }
+
+    .artist-profile__image-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--bg-alt);
+    }
+
+    .artist-profile__image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .artist-profile__image-wrap:hover img {
+      transform: scale(1.03);
+    }
+
+    /* Gallery badge */
+    .profile-gallery-badge {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(250, 249, 247, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .profile-gallery-badge svg {
+      width: 13px;
+      height: 13px;
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    .artist-profile__image-wrap:hover .profile-gallery-badge {
+      opacity: 0.85;
+    }
+
+    /* Gradient ring on hover */
+    .artist-profile__image-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 18px;
+      background: var(--gradient-full);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .artist-profile__image-wrap:hover::before {
+      opacity: 1;
+    }
+
+    /* ── Studio history image ── */
+    .intro__image-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .intro__image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .intro__image-wrap:hover img {
+      transform: scale(1.03);
+    }
+
+    .intro__image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(0,0,0,0.18), transparent);
+      pointer-events: none;
+    }
+
+    .studio-gallery-badge {
+      position: absolute;
+      bottom: 14px;
+      right: 14px;
+      background: rgba(250, 249, 247, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .studio-gallery-badge svg {
+      width: 13px;
+      height: 13px;
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    /* ── About-page lightbox ── */
+    .about-lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      background: rgba(10, 10, 10, 0.93);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .about-lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .about-lightbox__inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .about-lightbox__img {
+      max-width: 88vw;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      display: block;
+    }
+
+    .about-lightbox__caption {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .about-lightbox__caption h4 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .about-lightbox__caption span {
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Dots */
+    .about-lightbox__dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      justify-content: center;
+    }
+
+    .about-lightbox__dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+      border: none;
+      padding: 0;
+    }
+
+    .about-lightbox__dot.active {
+      background: #fff;
+      transform: scale(1.3);
+    }
+
+    /* Close button */
+    .about-lightbox__close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      z-index: 3001;
+    }
+
+    .about-lightbox__close:hover {
+      background: rgba(255,255,255,0.22);
+    }
+
+    /* Prev / Next */
+    .about-lightbox__nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+      z-index: 3001;
+    }
+
+    .about-lightbox__nav:hover {
+      background: rgba(255,255,255,0.22);
+    }
+
+    .about-lightbox__nav--prev { left: 20px; }
+    .about-lightbox__nav--next { right: 20px; }
+
+    /* Counter */
+    .about-lightbox__counter {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.06em;
+      z-index: 3001;
+    }
+
+    /* Artist name badge in lightbox */
+    .about-lightbox__artist-tag {
+      position: fixed;
+      top: 20px;
+      left: 24px;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #9BE1E5, #2AADC1);
+      color: #fff;
+      z-index: 3001;
+    }
+
+    @media (max-width: 600px) {
+      .about-lightbox__nav { display: none; }
+      .about-lightbox__img {
+        max-width: 95vw;
+        max-height: 65vh;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -47,8 +351,20 @@
     <div class="container">
       <div class="intro fade-in">
         <div class="intro__image">
-          <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop" 
-               alt="Ateljé Sällström studio" loading="lazy">
+          <!-- Studio history image — click to open lightbox -->
+          <div class="intro__image-wrap"
+               data-gallery="studio"
+               data-index="0"
+               role="button"
+               tabindex="0"
+               aria-label="Se fler bilder från ateljén">
+            <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop"
+                 alt="Ateljé Sällström studio" loading="lazy">
+            <div class="studio-gallery-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              +3 foton
+            </div>
+          </div>
         </div>
         <div class="intro__text">
           <h2>Vår historia</h2>
@@ -86,9 +402,20 @@
 
       <!-- Lennart -->
       <div class="artist-profile fade-in">
-        <div class="artist-profile__image">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=667&fit=crop&crop=face" 
-               alt="Lennart Sällström" loading="lazy">
+        <div class="artist-profile__image"
+             data-gallery="lennart"
+             data-index="0"
+             role="button"
+             tabindex="0"
+             aria-label="Se fler bilder av Lennart Sällström">
+          <div class="artist-profile__image-wrap">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=667&fit=crop&crop=face"
+                 alt="Lennart Sällström" loading="lazy">
+            <div class="profile-gallery-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              +4 foton
+            </div>
+          </div>
         </div>
         <div class="artist-profile__content">
           <h3>Lennart Sällström</h3>
@@ -121,9 +448,20 @@
 
       <!-- Robin -->
       <div class="artist-profile fade-in">
-        <div class="artist-profile__image">
-          <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=667&fit=crop&crop=face" 
-               alt="Robin Sällström" loading="lazy">
+        <div class="artist-profile__image"
+             data-gallery="robin"
+             data-index="0"
+             role="button"
+             tabindex="0"
+             aria-label="Se fler bilder av Robin Sällström">
+          <div class="artist-profile__image-wrap">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500&h=667&fit=crop&crop=face"
+                 alt="Robin Sällström" loading="lazy">
+            <div class="profile-gallery-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              +4 foton
+            </div>
+          </div>
         </div>
         <div class="artist-profile__content">
           <h3>Robin Sällström</h3>
@@ -156,9 +494,20 @@
 
       <!-- Ninni -->
       <div class="artist-profile fade-in">
-        <div class="artist-profile__image">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=667&fit=crop&crop=face" 
-               alt="Ninni Sällström" loading="lazy">
+        <div class="artist-profile__image"
+             data-gallery="ninni"
+             data-index="0"
+             role="button"
+             tabindex="0"
+             aria-label="Se fler bilder av Ninni Sällström">
+          <div class="artist-profile__image-wrap">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=667&fit=crop&crop=face"
+                 alt="Ninni Sällström" loading="lazy">
+            <div class="profile-gallery-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              +4 foton
+            </div>
+          </div>
         </div>
         <div class="artist-profile__content">
           <h3>Ninni Sällström</h3>
@@ -273,7 +622,266 @@
     </div>
   </footer>
 
+  <!-- About-page lightbox overlay -->
+  <div class="about-lightbox" id="aboutLightbox" role="dialog" aria-modal="true" aria-label="Bildgalleri">
+    <button class="about-lightbox__close" id="aboutLbClose" aria-label="Stäng">&times;</button>
+    <button class="about-lightbox__nav about-lightbox__nav--prev" id="aboutLbPrev" aria-label="Föregående">&#8249;</button>
+    <button class="about-lightbox__nav about-lightbox__nav--next" id="aboutLbNext" aria-label="Nästa">&#8250;</button>
+    <div class="about-lightbox__counter" id="aboutLbCounter"></div>
+    <div class="about-lightbox__artist-tag" id="aboutLbArtistTag"></div>
+    <div class="about-lightbox__inner">
+      <img class="about-lightbox__img" id="aboutLbImg" src="" alt="">
+      <div class="about-lightbox__caption">
+        <h4 id="aboutLbTitle"></h4>
+        <span id="aboutLbDesc"></span>
+      </div>
+      <div class="about-lightbox__dots" id="aboutLbDots"></div>
+    </div>
+  </div>
+
   <script src="js/main.js"></script>
   <script>lucide.createIcons();</script>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── Gallery data ── */
+    var GALLERIES = {
+      studio: {
+        artist: 'Ateljé Sällström',
+        images: [
+          {
+            src: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=1200&h=900&fit=crop',
+            title: 'Vår ateljé',
+            desc: 'Hjärtat i Ateljé Sällström — där vi skapar tillsammans'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=1200&h=900&fit=crop',
+            title: 'Skapandets stund',
+            desc: 'Penslar, färger och fantasi i samspel'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1200&h=900&fit=crop',
+            title: 'Vernissage',
+            desc: 'Gregers Konstgalleri, Hornsgatan 46, Stockholm'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1531913223931-b0d3198229ee?w=1200&h=900&fit=crop',
+            title: 'Konst på vägg',
+            desc: 'Verk från kollektivets senaste utställning'
+          }
+        ]
+      },
+      lennart: {
+        artist: 'Lennart Sällström',
+        images: [
+          {
+            src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=1200&fit=crop&crop=face',
+            title: 'Lennart Sällström',
+            desc: 'Pappan och grundaren av Ateljé Sällström'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200&h=900&fit=crop',
+            title: 'Stadslandskap i akryl',
+            desc: 'Lennarts signaturteknik — starka färger och urbana motiv'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200&h=900&fit=crop',
+            title: 'Södermalm',
+            desc: 'Stadsdelen som inspirerar Lennarts konstnärliga vision'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=1200&h=900&fit=crop',
+            title: 'Akrylmåleri',
+            desc: 'Processen bakom Lennarts livfulla kompositioner'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1200&h=900&fit=crop',
+            title: 'Stockholms siluett',
+            desc: 'Broar, byggnader och gator i färgstark tolkning'
+          }
+        ]
+      },
+      robin: {
+        artist: 'Robin Sällström',
+        images: [
+          {
+            src: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=900&h=1200&fit=crop&crop=face',
+            title: 'Robin Sällström',
+            desc: 'Digital konstnär och filmskapare'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&h=900&fit=crop',
+            title: 'Digital komposition',
+            desc: 'Robins arbete i skärningspunkten mellan teknik och konst'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&h=900&fit=crop',
+            title: 'Fotografisk vision',
+            desc: 'Fotografi som konstnärligt uttrycksmedel'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1536240478700-b869ad10e2ab?w=1200&h=900&fit=crop',
+            title: 'Filmberättande',
+            desc: 'Rörlig bild som en del av Robins konstnärliga process'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&h=900&fit=crop',
+            title: 'Digital världsbygge',
+            desc: 'Skapandet av visuella universum med digitala verktyg'
+          }
+        ]
+      },
+      ninni: {
+        artist: 'Ninni Sällström',
+        images: [
+          {
+            src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=900&h=1200&fit=crop&crop=face',
+            title: 'Ninni Sällström',
+            desc: 'Konstnär, fotograf och kreativ skribent'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1576085898323-218337e3e43c?w=1200&h=900&fit=crop',
+            title: 'Akryl pouring',
+            desc: 'Ninnins abstrakta målningar — färg i fri rörelse'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=1200&h=900&fit=crop',
+            title: 'Naturfotografi',
+            desc: 'Naturens detaljer fångade med ett känsligt öga'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=1200&h=900&fit=crop',
+            title: 'Organiska mönster',
+            desc: 'Kosmiska kompositioner inspirerade av naturens egna former'
+          },
+          {
+            src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1200&h=900&fit=crop',
+            title: 'Kreativt skrivande',
+            desc: 'Berättande som en förlängning av det visuella'
+          }
+        ]
+      }
+    };
+
+    /* ── DOM refs ── */
+    var lb        = document.getElementById('aboutLightbox');
+    var lbImg     = document.getElementById('aboutLbImg');
+    var lbTitle   = document.getElementById('aboutLbTitle');
+    var lbDesc    = document.getElementById('aboutLbDesc');
+    var lbCounter = document.getElementById('aboutLbCounter');
+    var lbTag     = document.getElementById('aboutLbArtistTag');
+    var lbDots    = document.getElementById('aboutLbDots');
+    var lbClose   = document.getElementById('aboutLbClose');
+    var lbPrev    = document.getElementById('aboutLbPrev');
+    var lbNext    = document.getElementById('aboutLbNext');
+
+    var currentGallery = null;
+    var currentIndex   = 0;
+
+    /* ── Render ── */
+    function renderDots(gallery, idx) {
+      lbDots.innerHTML = '';
+      gallery.images.forEach(function (_, i) {
+        var btn = document.createElement('button');
+        btn.className = 'about-lightbox__dot' + (i === idx ? ' active' : '');
+        btn.setAttribute('aria-label', 'Bild ' + (i + 1));
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          goTo(i);
+        });
+        lbDots.appendChild(btn);
+      });
+    }
+
+    function showSlide(gallery, idx) {
+      var item = gallery.images[idx];
+      lbImg.src   = item.src;
+      lbImg.alt   = item.title;
+      lbTitle.textContent   = item.title;
+      lbDesc.textContent    = item.desc;
+      lbTag.textContent     = gallery.artist;
+      lbCounter.textContent = (idx + 1) + ' / ' + gallery.images.length;
+
+      // Update dots
+      var dots = lbDots.querySelectorAll('.about-lightbox__dot');
+      dots.forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+
+      // Hide nav if only one image
+      var single = gallery.images.length <= 1;
+      lbPrev.style.display = single ? 'none' : '';
+      lbNext.style.display = single ? 'none' : '';
+    }
+
+    function openLightbox(galleryKey, startIndex) {
+      currentGallery = GALLERIES[galleryKey];
+      currentIndex   = startIndex || 0;
+      if (!currentGallery) return;
+
+      renderDots(currentGallery, currentIndex);
+      showSlide(currentGallery, currentIndex);
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lb.classList.remove('active');
+      document.body.style.overflow = '';
+      currentGallery = null;
+    }
+
+    function goTo(idx) {
+      if (!currentGallery) return;
+      currentIndex = (idx + currentGallery.images.length) % currentGallery.images.length;
+      showSlide(currentGallery, currentIndex);
+    }
+
+    /* ── Bind trigger elements ── */
+    function bindTriggers() {
+      var triggers = document.querySelectorAll('[data-gallery]');
+      triggers.forEach(function (el) {
+        var key   = el.getAttribute('data-gallery');
+        var start = parseInt(el.getAttribute('data-index') || '0', 10);
+
+        function activate() { openLightbox(key, start); }
+
+        el.addEventListener('click',   activate);
+        el.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); }
+        });
+      });
+    }
+
+    /* ── Lightbox controls ── */
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click',  function () { goTo(currentIndex - 1); });
+    lbNext.addEventListener('click',  function () { goTo(currentIndex + 1); });
+
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'Escape')     closeLightbox();
+      if (e.key === 'ArrowRight') goTo(currentIndex + 1);
+      if (e.key === 'ArrowLeft')  goTo(currentIndex - 1);
+    });
+
+    /* ── Touch swipe ── */
+    var touchStartX = 0;
+    lb.addEventListener('touchstart', function (e) {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dx) > 50) goTo(currentIndex + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    /* ── Init ── */
+    bindTriggers();
+  })();
+  </script>
 </body>
 </html>
