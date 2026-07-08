@@ -8,31 +8,47 @@
     content="Galleri — Utforska konstverk av Lennart, Robin och Ninni Sällström. Akrylmålningar, digital konst, fotografi och mer.">
   <title>Galleri — Ateljé Sällström</title>
 
+  <link rel="canonical" href="https://ateljesallstrom.se/galleri.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ateljé Sällström">
+  <meta property="og:title" content="Galleri — Ateljé Sällström">
+  <meta property="og:description"
+    content="Utforska konstverk av Lennart, Robin och Ninni Sällström — akryl, digital konst och fotografi.">
+  <meta property="og:url" content="https://ateljesallstrom.se/galleri.html">
+  <meta property="og:image" content="https://ateljesallstrom.se/images/opt/og-image.jpg">
+  <meta property="og:locale" content="sv_SE">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
     rel="stylesheet">
 
-  <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js" defer></script>
+  <script src="js/aurora.js" defer></script>
+  <script src="js/works.js" defer></script>
+  <script src="js/main.js" defer></script>
 </head>
 
 <body>
 
+  <a class="skip-link" href="#main">Till innehållet</a>
+
   <!-- Navigation -->
-  <nav class="nav">
+  <nav class="nav" aria-label="Huvudmeny">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo">Ateljé Sällström</a>
       <div class="nav__links">
         <a href="index.html" class="nav__link">Hem</a>
-        <a href="galleri.html" class="nav__link active">Galleri</a>
+        <a href="galleri.html" class="nav__link">Galleri</a>
         <a href="om-oss.html" class="nav__link">Om oss</a>
         <a href="kontakt.html" class="nav__link">Kontakt</a>
       </div>
-      <button class="nav__hamburger" aria-label="Meny">
+      <button class="nav__hamburger" aria-label="Meny" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -40,170 +56,38 @@
     </div>
   </nav>
 
-  <!-- Page Header -->
-  <div class="page-header">
-    <h1>Galleri</h1>
-    <p>Utforska verk av våra tre konstnärer — filtrera efter konstnär eller bläddra bland alla verk.</p>
-  </div>
+  <main id="main">
 
-  <hr class="gradient-divider">
-
-  <!-- Gallery Section -->
-  <section class="section">
-    <div class="container">
-
-      <!-- Filter Buttons -->
-      <div class="gallery-filters fade-in">
-        <button class="filter-btn active" data-filter="alla">Alla verk</button>
-        <button class="filter-btn" data-filter="lennart">Lennart</button>
-        <button class="filter-btn" data-filter="robin">Robin</button>
-        <button class="filter-btn" data-filter="ninni">Ninni</button>
-      </div>
-
-      <!-- Gallery Grid -->
-      <div class="gallery-grid">
-
-        <!-- Lennart — Stadssilhuetter -->
-        <div class="gallery-item gallery-item--tall fade-in" data-artist="lennart">
-          <img src="images/lennart01.jpg" alt="Stadssilhuetter — Lennart Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Stadssilhuetter</h4>
-            <span>Lennart Sällström — Akryl</span>
-          </div>
-        </div>
-
-        <!-- Robin — Interstellar Dreams -->
-        <div class="gallery-item fade-in" data-artist="robin">
-          <img src="images/robin03.png" alt="Interstellar Dreams — Robin Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Interstellar Dreams</h4>
-            <span>Robin Sällström — Digital</span>
-          </div>
-        </div>
-
-        <!-- Ninni — Under Ytan -->
-        <div class="gallery-item fade-in" data-artist="ninni">
-          <img src="images/ninni05.jpg" alt="Under Ytan — Ninni Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Under Ytan</h4>
-            <span>Ninni Sällström — Akryl pouring</span>
-          </div>
-        </div>
-
-        <!-- Lennart — Tänk -->
-        <div class="gallery-item fade-in" data-artist="lennart">
-          <img src="images/lennart02.jpg" alt="Tänk — Lennart Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Tänk</h4>
-            <span>Lennart Sällström — Akryl</span>
-          </div>
-        </div>
-
-        <!-- Robin — Digital Composition -->
-        <div class="gallery-item gallery-item--wide fade-in" data-artist="robin">
-          <img src="images/robin04.png" alt="Digital komposition — Robin Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Digital komposition</h4>
-            <span>Robin Sällström — Digital konst</span>
-          </div>
-        </div>
-
-        <!-- Ninni — Celestial Hues -->
-        <div class="gallery-item fade-in" data-artist="ninni">
-          <img src="images/ninni04.jpg" alt="Celestial Hues — Ninni Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Celestial Hues</h4>
-            <span>Ninni Sällström — Fotografi</span>
-          </div>
-        </div>
-
-        <!-- Lennart — Södermalm -->
-        <div class="gallery-item fade-in" data-artist="lennart">
-          <img src="images/lennart06.jpg" alt="Södermalm i färg — Lennart Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Södermalm i färg</h4>
-            <span>Lennart Sällström — Akryl</span>
-          </div>
-        </div>
-
-        <!-- Robin — Film still -->
-        <div class="gallery-item fade-in" data-artist="robin">
-          <img src="images/robin05.png" alt="Radiant — Robin Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Neonljus</h4>
-            <span>Robin Sällström — Digital konst</span>
-          </div>
-        </div>
-
-        <!-- Ninni — Nature photography -->
-        <div class="gallery-item gallery-item--tall fade-in" data-artist="ninni">
-          <img src="images/ninni22.jpg" alt="Naturens former — Ninni Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Naturens former</h4>
-            <span>Ninni Sällström — Fotografi</span>
-          </div>
-        </div>
-
-        <!-- Lennart — Abstract cityscape -->
-        <div class="gallery-item fade-in" data-artist="lennart">
-          <img src="images/lennart08.jpg" alt="Abstrakt stadsvy — Lennart Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Abstrakt stadsvy</h4>
-            <span>Lennart Sällström — Akryl</span>
-          </div>
-        </div>
-
-        <!-- Robin — Photography -->
-        <div class="gallery-item fade-in" data-artist="robin">
-          <img src="images/robin08.png" alt="Skymning — Robin Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Skymning</h4>
-            <span>Robin Sällström — Fotografi</span>
-          </div>
-        </div>
-
-        <!-- Ninni — Pouring abstract -->
-        <div class="gallery-item fade-in" data-artist="ninni">
-          <img src="images/ninni06.jpg" alt="Flytande färger — Ninni Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Flytande färger</h4>
-            <span>Ninni Sällström — Akryl pouring</span>
-          </div>
-        </div>
-
-        <!-- Lennart — Bold red painting -->
-        <div class="gallery-item fade-in" data-artist="lennart">
-          <img src="images/lennart02.jpg" alt="Röd komposition — Lennart Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Röd komposition</h4>
-            <span>Lennart Sällström — Akryl</span>
-          </div>
-        </div>
-
-        <!-- Robin — Surreal digital -->
-        <div class="gallery-item gallery-item--wide fade-in" data-artist="robin">
-          <img src="images/robin09.png" alt="Surrealistisk dröm — Robin Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Surrealistisk dröm</h4>
-            <span>Robin Sällström — Digital konst</span>
-          </div>
-        </div>
-
-        <!-- Ninni — Creative writing inspired -->
-        <div class="gallery-item fade-in" data-artist="ninni">
-          <img src="images/ninni10.jpg" alt="Poetisk natur — Ninni Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Poetisk natur</h4>
-            <span>Ninni Sällström — Fotografi</span>
-          </div>
-        </div>
-
-      </div>
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1>Galleri</h1>
+      <p>Utforska verk av våra tre konstnärer — filtrera efter konstnär eller bläddra bland alla verk.</p>
     </div>
-  </section>
+
+    <hr class="gradient-divider">
+
+    <!-- Gallery Section -->
+    <section class="section">
+      <div class="container">
+
+        <!-- Filter Buttons -->
+        <div class="gallery-filters fade-in" role="group" aria-label="Filtrera efter konstnär">
+          <button class="filter-btn active" data-filter="alla" aria-pressed="true">Alla verk</button>
+          <button class="filter-btn" data-filter="lennart" aria-pressed="false">Lennart</button>
+          <button class="filter-btn" data-filter="robin" aria-pressed="false">Robin</button>
+          <button class="filter-btn" data-filter="ninni" aria-pressed="false">Ninni</button>
+        </div>
+
+        <!-- Gallery Grid — populated from js/works.js -->
+        <div class="gallery-grid" id="gallery-grid" data-dynamic></div>
+
+      </div>
+    </section>
+
+  </main>
 
   <!-- Lightbox -->
-  <div class="lightbox">
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Bildvisning">
     <button class="lightbox__close" aria-label="Stäng">&times;</button>
     <button class="lightbox__nav lightbox__nav--prev" aria-label="Föregående">&#8249;</button>
     <button class="lightbox__nav lightbox__nav--next" aria-label="Nästa">&#8250;</button>
@@ -211,6 +95,8 @@
     <div class="lightbox__info">
       <h4></h4>
       <span></span>
+      <br>
+      <a class="lightbox__inquiry" href="kontakt.html">Skicka förfrågan</a>
     </div>
   </div>
 
@@ -220,7 +106,7 @@
       <div class="footer__inner">
         <div class="footer__brand">
           <h3>Ateljé Sällström</h3>
-          <p>En familjedriven konststudio där tre generationers kreativitet möts. Vi skapar, inspirerar och utvecklas
+          <p>En familjedriven konststudio där två generationers kreativitet möts. Vi skapar, inspirerar och utvecklas
             tillsammans.</p>
         </div>
         <div>
@@ -237,8 +123,14 @@
           <div class="footer__links">
             <a href="https://facebook.com/ateljesallstrom" target="_blank" rel="noopener">Facebook</a>
             <a href="https://instagram.com/ateljesallstrom" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://ateljesallstrom.se" target="_blank" rel="noopener">Portfolio</a>
           </div>
+          <h4 style="margin-top: 24px;">Nyhetsbrev</h4>
+          <p class="footer__newsletter-hint">Få inbjudningar till vernissager och utställningar.</p>
+          <form class="newsletter-form" name="nyhetsbrev" method="POST">
+            <input type="checkbox" name="botcheck" hidden aria-hidden="true" tabindex="-1" autocomplete="off">
+            <input type="email" name="email" placeholder="din@epost.se" required aria-label="E-postadress">
+            <button type="submit">Prenumerera</button>
+          </form>
         </div>
       </div>
       <div class="footer__bottom">
@@ -255,8 +147,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
-  <script>lucide.createIcons();</script>
 </body>
 
 </html>

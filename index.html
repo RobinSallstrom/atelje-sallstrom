@@ -4,9 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Ateljé Sällström — en familjedriven konststudio i Stockholm. Lennart " Sälen",
-    Robin, Ninni och Barbro skapar tillsammans konst i akryl, digital media och fotografi.">
-  <title>Ateljé Sällström — Hem</title>
+  <meta name="description"
+    content="Ateljé Sällström — en familjedriven konststudio i Stockholm. Lennart 'Sälen', Robin och Ninni skapar konst i akryl, digital media och fotografi.">
+  <title>Ateljé Sällström — Familjedriven konststudio i Stockholm</title>
+
+  <link rel="canonical" href="https://ateljesallstrom.se/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ateljé Sällström">
+  <meta property="og:title" content="Ateljé Sällström — Familjedriven konststudio i Stockholm">
+  <meta property="og:description"
+    content="Tre konstnärer, en familj. Akrylmåleri, digital konst och naturfotografi under ett gemensamt tak.">
+  <meta property="og:url" content="https://ateljesallstrom.se/">
+  <meta property="og:image" content="https://ateljesallstrom.se/images/opt/og-image.jpg">
+  <meta property="og:locale" content="sv_SE">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,30 +26,49 @@
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
     rel="stylesheet">
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml"
-    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Scripts (deferred) -->
+  <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js" defer></script>
+  <script src="js/aurora.js" defer></script>
+  <script src="js/main.js" defer></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ateljé Sällström",
+    "url": "https://ateljesallstrom.se/",
+    "logo": "https://ateljesallstrom.se/favicon.svg",
+    "description": "Familjedriven konststudio i Stockholm — akrylmåleri, digital konst och naturfotografi.",
+    "address": { "@type": "PostalAddress", "addressLocality": "Stockholm", "addressCountry": "SE" },
+    "sameAs": [
+      "https://facebook.com/ateljesallstrom",
+      "https://instagram.com/ateljesallstrom"
+    ]
+  }
+  </script>
 </head>
 
 <body>
 
+  <a class="skip-link" href="#main">Till innehållet</a>
+
   <!-- Navigation -->
-  <nav class="nav">
+  <nav class="nav" aria-label="Huvudmeny">
     <div class="nav__inner">
       <a href="index.html" class="nav__logo">Ateljé Sällström</a>
       <div class="nav__links">
-        <a href="index.html" class="nav__link active">Hem</a>
+        <a href="index.html" class="nav__link">Hem</a>
         <a href="galleri.html" class="nav__link">Galleri</a>
         <a href="om-oss.html" class="nav__link">Om oss</a>
         <a href="kontakt.html" class="nav__link">Kontakt</a>
       </div>
-      <button class="nav__hamburger" aria-label="Meny">
+      <button class="nav__hamburger" aria-label="Meny" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -46,183 +76,223 @@
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero__bg"></div>
-    <div class="hero__content">
-      <span class="hero__label">Familjedriven konststudio</span>
-      <h1 class="hero__title"><span>Ateljé Sällström</span></h1>
-      <p class="hero__subtitle">Tre konstnärer. En familj. Oändlig kreativitet.</p>
-      <p class="hero__description">
-        Vi är Lennart "Sälen", Robin, Ninni och Barbro — en familj som förenas av konsten.
-        Allt från livfulla stadslandskap och abstrakta akrylmålningar till digital konst
-        och naturfotografi skapar vi tillsammans under ett gemensamt tak.
-      </p>
-      <a href="galleri.html" class="hero__cta">
-        Utforska vårt galleri
-        <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
-      </a>
-    </div>
-    <div class="hero__scroll">
-      <span>Scrolla</span>
-      <div class="hero__scroll-line"></div>
-    </div>
-  </section>
+  <main id="main">
 
-  <!-- Gradient Divider -->
-  <hr class="gradient-divider">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__bg"></div>
+      <div class="hero__content">
+        <span class="hero__label">Familjedriven konststudio</span>
+        <h1 class="hero__title"><span>Ateljé Sällström</span></h1>
+        <p class="hero__subtitle">Gemensamma rötter, egna uttryck</p>
+        <p class="hero__description">
+          Välkomna! Vi är Lennart ”Sälen”, Robin, Ninni och Barbro — en familj som förenas av konsten.
+          Allt från livfulla stadslandskap och abstrakta akrylmålningar till digital konst
+          och naturfotografi skapar vi tillsammans under ett gemensamt tak.
+        </p>
+        <a href="galleri.html" class="hero__cta">
+          Utforska vårt galleri
+          <i data-lucide="arrow-right" style="width:18px;height:18px;"></i>
+        </a>
+      </div>
+      <div class="hero__scroll">
+        <span>Scrolla</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
 
-  <!-- Intro Section -->
-  <section class="section">
-    <div class="container">
-      <div class="intro fade-in">
-        <div class="intro__image">
-          <img src="images/studio.jpeg" alt="Konstnärsateljé med målningar och kreativa verktyg" loading="lazy">
+    <!-- Gradient Divider -->
+    <hr class="gradient-divider">
+
+    <!-- Intro Section -->
+    <section class="section">
+      <div class="container">
+        <div class="intro fade-in">
+          <div class="intro__image">
+            <img src="images/opt/studio-800.webp"
+              srcset="images/opt/studio-800.webp 800w, images/opt/studio-1600.webp 1536w"
+              sizes="(max-width: 768px) 100vw, 50vw" width="800" height="1067"
+              alt="Konstnärsateljé med målningar och kreativa verktyg" loading="lazy" decoding="async">
+          </div>
+          <div class="intro__text">
+            <h2>Konst som förenar</h2>
+            <p>
+              Ateljé Sällström skapades för ett par år sedan när vi enades om att göra
+              något kreativt tillsammans efter många år av arbete för och tillsammans med andra aktörer.
+            </p>
+            <p>
+              Vårt mål och syfte är att bibehålla en gemenskap och ett umgänge, och därifrån
+              utveckla, inspirera och skapa tillsammans. Varje verk bär med sig en del av vår
+              gemensamma historia och våra individuella konstnärliga röster.
+            </p>
+            <a href="om-oss.html" class="btn btn--outline">
+              Läs mer om oss
+              <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+            </a>
+          </div>
         </div>
-        <div class="intro__text">
-          <h2>Konst som förenar</h2>
-          <p>
-            Ateljé Sällström skapades för ett par år sedan när familjen enades om att göra
-            något kreativt tillsammans efter år av arbete till och tillsammans med andra aktörer.
-          </p>
-          <p>
-            Vårt mål och syfte är att bibehålla en gemenskap och umgänge och därifrån
-            utveckla, inspirera och skapa tillsammans. Varje verk bär med sig en del av vår
-            gemensamma historia och individuella konstnärliga röster.
-          </p>
-          <a href="om-oss.html" class="btn btn--outline">
-            Läs mer om oss
+      </div>
+    </section>
+
+    <!-- Artists Preview -->
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section__header fade-in">
+          <h2>Våra konstnärer</h2>
+          <hr class="gradient-divider gradient-divider--thin">
+        </div>
+
+        <div class="artists-preview">
+          <!-- Lennart -->
+          <div class="artist-card fade-in fade-in-delay-1">
+            <div class="artist-card__image">
+              <img src="images/opt/lennart-portrait-800.webp" width="800" height="450"
+                alt="Lennart Sällström" loading="lazy" decoding="async">
+            </div>
+            <h3>Lennart Sällström</h3>
+            <div class="artist-card__role">Pappan — Akrylmåleri</div>
+            <p>F.d. bildlärare som målar i akryl med starka färger, oftast med rött som bas. Inspirerad av Södermalm
+              skapar han stadstavlor fulla av liv och energi.</p>
+          </div>
+
+          <!-- Robin -->
+          <div class="artist-card fade-in fade-in-delay-2">
+            <div class="artist-card__image">
+              <img src="images/opt/robin-portrait-800.webp" width="800" height="450"
+                alt="Robin Sällström" loading="lazy" decoding="async">
+            </div>
+            <h3>Robin Sällström</h3>
+            <div class="artist-card__role">Sonen — Digital konst & Film</div>
+            <p>Utbildad inom design och media skapar Robin unika och spännande konstverk med hjälp av film, fotografi
+              och digitala verktyg.</p>
+          </div>
+
+          <!-- Ninni -->
+          <div class="artist-card fade-in fade-in-delay-3">
+            <div class="artist-card__image">
+              <img src="images/opt/ninni-portrait-800.webp" width="800" height="450"
+                alt="Ninni Sällström" loading="lazy" decoding="async">
+            </div>
+            <h3>Ninni Sällström</h3>
+            <div class="artist-card__role">Dottern — Måleri & fotografi</div>
+            <p>Med mycket fantasi har kreativiteten tagit många uttryck – från kreativt skrivande och naturfotografi
+              till målningar i flytande akryl och akvarell.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exhibition Banner -->
+    <section class="exhibition-banner">
+      <div class="container">
+        <h3>Utställningar & Evenemang</h3>
+        <p>Följ oss på sociala medier för att hålla dig uppdaterad om kommande utställningar och vernissager.</p>
+        <div style="display: flex; align-items: center; gap: 16px; justify-content: center; margin-top: 20px;">
+          <a href="https://instagram.com/ateljesallstrom" target="_blank" rel="noopener" aria-label="Instagram"
+            style="color: #fff; display: flex; align-items: center;">
+            <i data-lucide="instagram" style="width:24px;height:24px;"></i>
+          </a>
+          <a href="om-oss.html#utstallningar" class="btn btn--outline"
+            style="color: #fff; border-color: rgba(255,255,255,0.5);">
+            Se våra utställningar
             <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
           </a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Artists Preview -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section__header fade-in">
-        <h2>Våra konstnärer</h2>
-        <hr class="gradient-divider gradient-divider--thin">
-        <p>Tre unika röster, förenade av familjeband och en gemensam passion för skapande.</p>
-      </div>
-
-      <div class="artists-preview">
-        <!-- Lennart -->
-        <div class="artist-card fade-in fade-in-delay-1">
-          <div class="artist-card__image">
-            <img src="images/lennart-portrait.jpg" alt="Lennart Sällström" loading="lazy">
-          </div>
-          <h3>Lennart Sällström</h3>
-          <div class="artist-card__role">Pappan — Akrylmåleri</div>
-          <p>MFd. bildlärare som målar i akryl med starka färger och oftast rött som bas. Inspirerad av Södermalm skapar
-            han stadstavlor
-            fulla av liv och energi.</p>
+    <!-- Featured Works Preview -->
+    <section class="section">
+      <div class="container">
+        <div class="section__header fade-in">
+          <h2>Utvalda verk</h2>
+          <hr class="gradient-divider gradient-divider--thin">
+          <p>Ett urval av konstverk från våra tre konstnärer.</p>
         </div>
 
-        <!-- Robin -->
-        <div class="artist-card fade-in fade-in-delay-2">
-          <div class="artist-card__image">
-            <img src="images/robin-portrait.jpg" alt="Robin Sällström" loading="lazy">
-          </div>
-          <h3>Robin Sällström</h3>
-          <div class="artist-card__role">Sonen — Digital konst & Film</div>
-          <p>Utbildad inom design och media skapar Robin unika och spännande konstverk med hjälp av film, fotografier
-            och digitala medel.</p>
+        <div class="gallery-grid" style="margin-bottom: 40px;">
+          <a href="galleri.html" class="gallery-item gallery-item--tall fade-in">
+            <img src="images/opt/salen01-800.webp"
+              srcset="images/opt/salen01-800.webp 800w, images/opt/salen01-1600.webp 1600w"
+              sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 33vw" width="800" height="573"
+              alt="Salen — Lennart Sällström, akryl" loading="lazy" decoding="async">
+            <div class="gallery-item__overlay">
+              <h4>Salen</h4>
+              <span>Lennart Sällström</span>
+            </div>
+          </a>
+          <a href="galleri.html" class="gallery-item fade-in">
+            <img src="images/opt/salen16-800.webp"
+              srcset="images/opt/salen16-800.webp 800w, images/opt/salen16-1600.webp 1600w"
+              sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 33vw" width="800" height="659"
+              alt="Salen — Lennart Sällström, akryl" loading="lazy" decoding="async">
+            <div class="gallery-item__overlay">
+              <h4>Salen</h4>
+              <span>Lennart Sällström</span>
+            </div>
+          </a>
+          <a href="galleri.html" class="gallery-item fade-in">
+            <img src="images/opt/salen22-800.webp"
+              srcset="images/opt/salen22-800.webp 800w, images/opt/salen22-1600.webp 1600w"
+              sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 33vw" width="800" height="580"
+              alt="Salen — Lennart Sällström, akryl" loading="lazy" decoding="async">
+            <div class="gallery-item__overlay">
+              <h4>Salen</h4>
+              <span>Lennart Sällström</span>
+            </div>
+          </a>
+          <a href="galleri.html" class="gallery-item fade-in">
+            <img src="images/opt/robin04-800.webp"
+              srcset="images/opt/robin04-800.webp 800w, images/opt/robin04-1600.webp 1500w"
+              sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 33vw" width="800" height="1132"
+              alt="Digital komposition — Robin Sällström" loading="lazy" decoding="async">
+            <div class="gallery-item__overlay">
+              <h4>Digital komposition</h4>
+              <span>Robin Sällström</span>
+            </div>
+          </a>
+          <a href="galleri.html" class="gallery-item fade-in">
+            <img src="images/opt/ninni15-800.webp"
+              srcset="images/opt/ninni15-800.webp 800w, images/opt/ninni15-1600.webp 1440w"
+              sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 33vw" width="800" height="626"
+              alt="Akryl pouring — Ninni Sällström" loading="lazy" decoding="async">
+            <div class="gallery-item__overlay">
+              <h4>Akryl pouring</h4>
+              <span>Ninni Sällström</span>
+            </div>
+          </a>
+          <a href="galleri.html" class="gallery-item fade-in">
+            <img src="images/opt/ninni13-800.webp"
+              srcset="images/opt/ninni13-800.webp 800w, images/opt/ninni13-1600.webp 1600w"
+              sizes="(max-width: 480px) 100vw, (max-width: 1024px) 50vw, 33vw" width="800" height="533"
+              alt="Naturfotografi — Ninni Sällström" loading="lazy" decoding="async">
+            <div class="gallery-item__overlay">
+              <h4>Naturfotografi</h4>
+              <span>Ninni Sällström</span>
+            </div>
+          </a>
+          <a href="galleri.html" class="gallery-item gallery-item--wide fade-in">
+            <img src="images/opt/lennart04-800.webp"
+              srcset="images/opt/lennart04-800.webp 800w, images/opt/lennart04-1600.webp 1600w"
+              sizes="(max-width: 480px) 100vw, (max-width: 1024px) 100vw, 66vw" width="800" height="566"
+              alt="Tänk — Lennart Sällström, akryl" loading="lazy" decoding="async">
+            <div class="gallery-item__overlay">
+              <h4>Tänk</h4>
+              <span>Lennart Sällström</span>
+            </div>
+          </a>
         </div>
 
-        <!-- Ninni -->
-        <div class="artist-card fade-in fade-in-delay-3">
-          <div class="artist-card__image">
-            <img src="images/ninni-portrait.jpg" alt="Ninni Sällström" loading="lazy">
-          </div>
-          <h3>Ninni Sällström</h3>
-          <div class="artist-card__role">Dottern — Akvarell, Akryl & Fotografi</div>
-          <p>Arbetar som lärare i mobil naturskola och naturen som inspirationskälla till såväl naturfotografering,
-            akvarellmålning som abstrakta målning i akryl med pouring-teknik.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Exhibition Banner -->
-  <section class="exhibition-banner">
-    <div class="container">
-      <h3>Utställningar & Evenemang</h3>
-      <p>Följ oss på sociala medier för att hålla dig uppdaterad om kommande utställningar och vernissager.</p>
-    </div>
-  </section>
-
-  <!-- Featured Works Preview -->
-  <section class="section">
-    <div class="container">
-      <div class="section__header fade-in">
-        <h2>Utvalda verk</h2>
-        <hr class="gradient-divider gradient-divider--thin">
-        <p>Ett urval av konstverk från våra tre konstnärer.</p>
-      </div>
-
-      <div class="gallery-grid" style="margin-bottom: 40px;">
-        <div class="gallery-item gallery-item--tall fade-in">
-          <img src="images/lennart01.jpg" alt="Stadssilhuett — Lennart Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Stadssilhuetter</h4>
-            <span>Lennart Sällström</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <img src="images/ninni15.jpg" alt="Interstellar Dreams — Robin Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Interstellar Dreams</h4>
-            <span>Robin Sällström</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <img src="images/ninni23.jpg" alt="Under Ytan — Ninni Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Under Ytan</h4>
-            <span>Ninni Sällström</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <img src="images/robin02.jpg" alt="Celestial Hues — Ninni Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Celestial Hues</h4>
-            <span>Ninni Sällström</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <img src="images/robin04.png" alt="Celestial Hues — Robin Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Celestial Hues</h4>
-            <span>Ninni Sällström</span>
-          </div>
-        </div>
-        <div class="gallery-item fade-in">
-          <img src="images/ninni13.jpeg" alt="Celestial Hues — Ninni Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Celestial Hues</h4>
-            <span>Ninni Sällström</span>
-          </div>
-        </div>
-        <div class="gallery-item gallery-item--wide fade-in">
-          <img src="images/lennart04.jpg" alt="Tänk — Lennart Sällström" loading="lazy">
-          <div class="gallery-item__overlay">
-            <h4>Tänk</h4>
-            <span>Lennart Sällström</span>
-          </div>
+        <div style="text-align: center;">
+          <a href="galleri.html" class="btn btn--primary">
+            Se hela galleriet
+            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </a>
         </div>
       </div>
+    </section>
 
-      <div style="text-align: center;">
-        <a href="galleri.html" class="btn btn--primary">
-          Se hela galleriet
-          <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
-        </a>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
@@ -247,8 +317,14 @@
           <div class="footer__links">
             <a href="https://facebook.com/ateljesallstrom" target="_blank" rel="noopener">Facebook</a>
             <a href="https://instagram.com/ateljesallstrom" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://ateljesallstrom.se" target="_blank" rel="noopener">Portfolio</a>
           </div>
+          <h4 style="margin-top: 24px;">Nyhetsbrev</h4>
+          <p class="footer__newsletter-hint">Få inbjudningar till vernissager och utställningar.</p>
+          <form class="newsletter-form" name="nyhetsbrev" method="POST">
+            <input type="checkbox" name="botcheck" hidden aria-hidden="true" tabindex="-1" autocomplete="off">
+            <input type="email" name="email" placeholder="din@epost.se" required aria-label="E-postadress">
+            <button type="submit">Prenumerera</button>
+          </form>
         </div>
       </div>
       <div class="footer__bottom">
@@ -265,10 +341,6 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <script src="js/fireflies.js"></script>
-  <script src="js/main.js"></script>
-  <script>lucide.createIcons();</script>
 </body>
 
 </html>

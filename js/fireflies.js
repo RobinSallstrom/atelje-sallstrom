@@ -265,6 +265,7 @@
       'pointer-events:none;z-index:0;';
     document.body.insertBefore(canvas, document.body.firstChild);
     ctx = canvas.getContext('2d');
+    return !!ctx;
   }
 
   function resize() {
@@ -323,7 +324,9 @@
      Init
   ───────────────────────────────────────────────────────── */
   function init() {
-    createCanvas();
+    // Respect user motion preferences — skip the animation entirely
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!createCanvas()) return;
     resize();
     initParticles();
 

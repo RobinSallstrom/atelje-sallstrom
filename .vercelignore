@@ -1,0 +1,8 @@
+# Source assets not needed in the deploy — the site only references images/opt/
+More pictures
+images/Edited
+images/*.jpg
+images/*.jpeg
+images/*.png
+.DS_Store
+IMPROVEMENT_PLAN.md

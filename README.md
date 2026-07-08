@@ -15,8 +15,20 @@ A modern, responsive website for **Ateljé Sällström**, a Swedish family art c
 
 - Pure HTML5, CSS3, and vanilla JavaScript (no build step required)
 - Google Fonts (Cormorant Garamond + DM Sans)
-- Lucide Icons (CDN)
-- Placeholder images from Unsplash
+- Lucide Icons (CDN, pinned version, deferred)
+- Web3Forms (contact form + newsletter — submissions arrive by email; set the access key in `js/main.js`)
+- Optimized WebP images in `images/opt/` (800px for grids, 1600px for lightbox)
+- Deployed on Vercel (`vercel.json` for headers/caching, `.vercelignore` excludes source assets)
+
+## Adding artwork to the gallery
+
+The gallery is data-driven. Each work is one entry in `js/works.js`:
+
+1. Put the original image in `images/`
+2. Create `images/opt/<name>-800.webp` and `images/opt/<name>-1600.webp` (max width 800/1600px)
+3. Add an entry to `js/works.js` with title, artist, medium, and the 800px width/height
+
+Titles marked `[granska]` in `works.js` are suggestions — replace with real titles.
 
 ## Project Structure
 
@@ -100,17 +112,18 @@ Update the portrait image URLs in `om-oss.html` and `index.html` (artist cards s
 
 ## Deployment
 
-### Netlify (recommended)
+### Vercel
 
-1. Connect this GitHub repo to [Netlify](https://app.netlify.com)
-2. Set the **publish directory** to `/` (root)
-3. Every push to `main` will auto-deploy
+1. Go to [vercel.com/new](https://vercel.com/new) and import the `RobinSallstrom/atelje-sallstrom` GitHub repo
+2. Framework preset: **Other** — no build command, output directory: `.` (defaults are fine)
+3. Deploy. Every push to `main` auto-deploys
+4. Add the custom domain `ateljesallstrom.se` under Project → Settings → Domains, and update the DNS records as Vercel instructs (remove the old Netlify DNS records)
 
-Alternatively, drag and drop the project folder to [Netlify Drop](https://app.netlify.com/drop).
+### Forms setup (one-time)
 
-### Other Static Hosts
-
-Upload all files maintaining the directory structure. No build step is needed — the site is pure HTML/CSS/JS.
+1. Get a free access key at [web3forms.com](https://web3forms.com) (enter the email that should receive submissions)
+2. Paste it into `WEB3FORMS_KEY` at the top of `js/main.js`
+3. Push — both the contact form and newsletter form will now deliver to your inbox
 
 ## Color Palette
 
