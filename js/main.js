@@ -4,7 +4,7 @@
 
 // Web3Forms access key — get yours at https://web3forms.com (free, takes a minute).
 // Both the contact form and the newsletter form use this key.
-const WEB3FORMS_KEY = 'YOUR_WEB3FORMS_ACCESS_KEY';
+const WEB3FORMS_KEY = '93b7ae46-776c-40a7-a6f3-2a14b63c081d';
 
 document.addEventListener('DOMContentLoaded', () => {
 
