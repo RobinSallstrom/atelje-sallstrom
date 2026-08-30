@@ -52,6 +52,41 @@
     ]
   }
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ExhibitionEvent",
+    "name": "Ateljé Sällström — Gemensamma rötter, egna uttryck",
+    "description": "Utställning med Ateljé Sällström: akrylmåleri, digital konst och fotografi av Lennart ”Sälen” Sällström, Ninni Sällström och Robin Sällström.",
+    "startDate": "2026-10-09",
+    "endDate": "2026-10-13",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "url": "https://ateljesallstrom.se/#utstallning",
+    "isAccessibleForFree": true,
+    "location": {
+      "@type": "Place",
+      "name": "Galleri Hornsgatan 96",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Hornsgatan 96",
+        "addressLocality": "Stockholm",
+        "addressCountry": "SE"
+      }
+    },
+    "organizer": {
+      "@type": "Organization",
+      "name": "Ateljé Sällström",
+      "url": "https://ateljesallstrom.se/"
+    },
+    "performer": [
+      { "@type": "Person", "name": "Lennart Sällström" },
+      { "@type": "Person", "name": "Ninni Sällström" },
+      { "@type": "Person", "name": "Robin Sällström" }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -183,19 +218,32 @@
     </section>
 
     <!-- Exhibition Banner -->
-    <section class="exhibition-banner">
+    <section class="exhibition-banner" id="utstallning">
       <div class="container">
-        <h3>Utställningar & Evenemang</h3>
-        <p>Följ oss på sociala medier för att hålla dig uppdaterad om kommande utställningar och vernissager.</p>
-        <div style="display: flex; align-items: center; gap: 16px; justify-content: center; margin-top: 20px;">
-          <a href="https://instagram.com/ateljesallstrom" target="_blank" rel="noopener" aria-label="Instagram"
-            style="color: #fff; display: flex; align-items: center;">
-            <i data-lucide="instagram" style="width:24px;height:24px;"></i>
-          </a>
-          <a href="om-oss.html#utstallningar" class="btn btn--outline"
-            style="color: #fff; border-color: rgba(255,255,255,0.5);">
-            Se våra utställningar
+        <span class="exhibition-banner__label">Kommande utställning</span>
+        <h3>Gemensamma rötter, egna uttryck</h3>
+        <p class="exhibition-banner__dates">
+          <time datetime="2026-10-09">9</time>–<time datetime="2026-10-13">13 oktober 2026</time>
+        </p>
+        <p class="exhibition-banner__vernissage">Vernissage lördag 10 oktober</p>
+        <p class="exhibition-banner__venue">Galleri Hornsgatan 96, Stockholm · Fri entré</p>
+        <p>
+          En familj, tre konstnärskap och ett gemensamt rum. Vi visar akrylmåleri, digital konst
+          och fotografi sida vid sida — varmt välkomna att titta förbi, prata konst och träffa
+          oss som står bakom verken.
+        </p>
+        <div class="exhibition-banner__actions">
+          <a href="kontakt.html" class="btn btn--outline exhibition-banner__btn">
+            Hör av dig
             <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </a>
+          <a href="om-oss.html#utstallningar" class="btn btn--outline exhibition-banner__btn">
+            Tidigare utställningar
+            <i data-lucide="arrow-right" style="width:16px;height:16px;"></i>
+          </a>
+          <a href="https://instagram.com/ateljesallstrom" target="_blank" rel="noopener"
+            class="exhibition-banner__social" aria-label="Följ oss på Instagram">
+            <i data-lucide="instagram" style="width:24px;height:24px;"></i>
           </a>
         </div>
       </div>
