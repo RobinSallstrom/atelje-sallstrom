@@ -35,12 +35,20 @@ SEO (meta/OG/sitemap/robots/JSON-LD), accessibility, data-driven gallery (~70 wo
 48 "salen" works under Lennart), aurora background, Vercel migration, working Web3Forms
 contact + newsletter forms. Most of IMPROVEMENT_PLAN.md P0/P1 is complete.
 
-**The live deadline: exhibition 9–13 October 2026**, vernissage Saturday 10 October,
-Galleri Hornsgatan 96, Stockholm, free entry. Print/marketing set (A3 + A4 posters,
+**The live deadline: exhibition ”Mellan Stad och Dröm”, 9–13 October 2026**, vernissage Saturday 10 October,
+Galleri Hornsgatan 96, Stockholm. Print/marketing set (A3 + A4 posters,
 A4 trifold, Instagram square + story, layered PSD, latest revision
 `AteljeSallstrom_Exhibition26_WiP.png`) lives in `marknadsforing/` — local only, gitignored
 and excluded from deploy. Note the WiP PNG is newer than the exported PDFs, so **the print
 PDFs may be stale** — re-export before sending to print.
+
+Done 2026-08-30 (poster): `poster_a3_exhibition26_B.psd` rebuilt from scratch with every
+element on its own named layer — artworks as smart objects, all nine text lines live and
+editable. Layout **B**: Ninni's watercolour (`assets/ninni_akvarell_blomma.jpg`) takes the
+portrait slot, Robin's abstract moves to the wide band. Full build spec, coordinates, type
+sizes, colours and the two known deltas are in `_psd_layers/POSTER_SPEC.md` — read that
+before touching the poster. Cormorant Garamond + DM Sans TTFs are in `_fonts/` and installed
+to `~/Library/Fonts`; without them Photoshop silently falls back to Myriad.
 
 Done 2026-08-30: exhibition announced on the site (`#utstallning` section on index.html with
 ExhibitionEvent JSON-LD; upcoming entry at the top of the Om oss Utställningar timeline),
