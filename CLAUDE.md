@@ -28,19 +28,36 @@ Site language is **Swedish**. Live domain target: `ateljesallstrom.se`.
 2. Generate `images/opt/<stem>-800.webp` and `images/opt/<stem>-1600.webp` (max widths 800/1600)
 3. Add one entry to `js/works.js` (title, artist, medium, w/h of the 800px version, optional `size: 'tall'|'wide'`)
 
-## Current state (as of July 2026)
+## Current state (as of August 2026)
 
 Done: the big July 2026 overhaul — performance pass (image optimization to WebP),
 SEO (meta/OG/sitemap/robots/JSON-LD), accessibility, data-driven gallery (~70 works incl.
 48 "salen" works under Lennart), aurora background, Vercel migration, working Web3Forms
 contact + newsletter forms. Most of IMPROVEMENT_PLAN.md P0/P1 is complete.
 
+**The live deadline: exhibition 9–13 October 2026**, vernissage Saturday 10 October,
+Galleri Hornsgatan 96, Stockholm, free entry. Print/marketing set (A3 + A4 posters,
+A4 trifold, Instagram square + story, layered PSD, latest revision
+`AteljeSallstrom_Exhibition26_WiP.png`) lives in `marknadsforing/` — local only, gitignored
+and excluded from deploy. Note the WiP PNG is newer than the exported PDFs, so **the print
+PDFs may be stale** — re-export before sending to print.
+
+Done 2026-08-30: exhibition announced on the site (`#utstallning` section on index.html with
+ExhibitionEvent JSON-LD; upcoming entry at the top of the Om oss Utställningar timeline),
+Barbro Edlund introduced in "Vår historia" (she runs the studio rather than exhibiting, so she
+sits with the family, not the artist grid), "två/tre generationers" footer contradiction
+resolved on två. Ready-to-send vernissage copy in `marknadsforing/vernissage_texter.md`
+(newsletter, Instagram, stories, Facebook event, press notice, send schedule).
+
 In flight / open items:
 
+- **Exhibition times are unknown** — opening hours for 9–13 Oct and the vernissage time are
+  not on the poster. The site section and all the marketing copy omit them; `vernissage_texter.md`
+  marks the gaps as `[TID]`. Needed before anything goes out.
 - 8 artwork titles in `js/works.js` marked `[granska]` are AI-suggested placeholders — need real titles from the family
-- `_Archived/` (untracked): old pre-overhaul copy of the site + a feedback PDF — historical only, not relevant, never deploy or commit
+- `_Archived/` (untracked, gitignored): old pre-overhaul copy of the site + a feedback PDF — historical only, never deploy or commit
 - Hosting: DONE (2026-08-07) — GitHub repo imported into Robin's Vercel account (project "ateljesallstrom", team robinsallstroms-projects; note: project names "atelje-sallstrom"/"atelje-sallstrom-442b" were taken/renamed). ateljesallstrom.se + www live on Vercel; DNS at Inleed (A @ → 216.150.1.1, CNAME www → e247c5cb1ba7cefc.vercel-dns-016.com, www 308-redirects to apex). MX/SPF for mail untouched. Old Netlify site can be deleted.
-- IMPROVEMENT_PLAN.md P2 ideas not yet built: per-artwork inquiry button, Utställningar page, EN language toggle, Instagram feed
+- IMPROVEMENT_PLAN.md P2 ideas not yet built: per-artwork inquiry button, dedicated Utställningar page, EN language toggle, Instagram feed
 
 ## Conventions & gotchas
 
