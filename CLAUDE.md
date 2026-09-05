@@ -78,3 +78,19 @@ In flight / open items:
 ## When ending a work session
 
 Update the "Current state" section above with what changed and what's next, and commit it.
+
+## Portfolio roadmap (cross-project)
+
+This project is **`atelje-sallstrom`** in Robin's portfolio roadmap — currently **NEXT #3**.
+Data: `../ROBO-OS/docs/roadmap/roadmap.json` (absolute: `~/Documents/Projects/ROBO-OS/docs/roadmap/roadmap.json`).
+**The JSON is the source of truth.** The published board (Claude artifact) and
+`ROBO-OS/docs/roadmap/portfolio-roadmap.html` are renderings of it — never edit those; edit the JSON.
+This works from any Claude profile or tool: it's a file, not an account.
+
+- **Session start:** read this project's entry — tier, `tierNote`, `milestones`, `triggers`, `nextAction`, `blockers`.
+  `python3 -c "import json;p=[x for x in json.load(open('$HOME/Documents/Projects/ROBO-OS/docs/roadmap/roadmap.json'))['projects'] if x['id']=='atelje-sallstrom'][0];print(json.dumps(p,indent=2,ensure_ascii=False))"`
+- **Wrap-up (alongside PROGRESS.md):** update the entry — set finished milestones to `"status":"done"` with a `"date"`,
+  mark the one you're on `"in_progress"`, add new milestones only if they're coarse (5–10 per project, never task-level),
+  refresh `currentPhase`, `nextAction`, `lastActivity`, `percentComplete`, and the `git` counts. Bump the top-level `version` patch number.
+- **Never change** `tier`, `tierRank`, `tierNote`, `scores`, `triggers` or `ownership` — those are Robin's decisions, made in review.
+- Milestone `status` ∈ pending · in_progress · done · dropped. Keep valid JSON (`python3 -m json.tool` on the file). Do not reformat the whole file.
