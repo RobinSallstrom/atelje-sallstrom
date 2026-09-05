@@ -1188,6 +1188,12 @@ p {
   margin: 0 auto 6px;
 }
 
+.exhibition-banner p.exhibition-banner__hours {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 auto 18px;
+}
+
 .exhibition-banner p.exhibition-banner__venue {
   font-size: 1.05rem;
   color: rgba(255, 255, 255, 0.92);

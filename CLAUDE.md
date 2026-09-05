@@ -35,12 +35,20 @@ SEO (meta/OG/sitemap/robots/JSON-LD), accessibility, data-driven gallery (~70 wo
 48 "salen" works under Lennart), aurora background, Vercel migration, working Web3Forms
 contact + newsletter forms. Most of IMPROVEMENT_PLAN.md P0/P1 is complete.
 
-**The live deadline: exhibition ”Mellan Stad och Dröm”, 9–13 October 2026**, vernissage Saturday 10 October,
-Galleri Hornsgatan 96, Stockholm. Print/marketing set (A3 + A4 posters,
-A4 trifold, Instagram square + story, layered PSD, latest revision
-`AteljeSallstrom_Exhibition26_WiP.png`) lives in `marknadsforing/` — local only, gitignored
-and excluded from deploy. Note the WiP PNG is newer than the exported PDFs, so **the print
-PDFs may be stale** — re-export before sending to print.
+**The live deadline: exhibition ”Mellan Stad och Dröm”, 10–13 October 2026** (9 Oct is hang-day only),
+vernissage Saturday 10 October 12–18; open Sat 12–18, Sun 12–17, Mon–Tue 16–19. Snacks, no alcohol (gallery is dry).
+Galleri Hornsgatan 96, Stockholm.
+
+`marknadsforing/` (local only, gitignored, excluded from deploy — tidied 2026-09-05):
+- `_export/poster_a3_exhibition26.png` — **the final A3 poster** (3508×4961 @ 300 dpi, 10–13 Oct,
+  no times on it by design). Anything else print-ready gets exported here.
+- `assets/poster_a3_exhibition26_B.psd` — the layered source PSD, plus the artwork crops it uses
+  (`city_fit.jpg`, `ninni_akvarell_blomma.jpg`, `rad_fit.jpg`, `aurora_bg.jpg`, …)
+- `_psd_layers/` — `POSTER_SPEC.md` (build spec) + full-canvas PNGs of each layer
+- `_fonts/` — Cormorant Garamond + DM Sans TTFs
+- `vernissage_texter.md` — ready-to-send copy (newsletter, Instagram, FB event, press, SMS, schedule)
+- `_archive/`, `_to_delete/`, `refs/` — old Aug posters/PDFs/WiP, junk, empty. Ignore.
+There is no A4 poster or trifold with the final dates yet — make them from the PSD if needed.
 
 Done 2026-08-30 (poster): `poster_a3_exhibition26_B.psd` rebuilt from scratch with every
 element on its own named layer — artworks as smart objects, all nine text lines live and
@@ -59,10 +67,11 @@ resolved on två. Ready-to-send vernissage copy in `marknadsforing/vernissage_te
 
 In flight / open items:
 
-- **Exhibition times are unknown** — opening hours for 9–13 Oct and the vernissage time are
-  not on the poster. The site section and all the marketing copy omit them; `vernissage_texter.md`
-  marks the gaps as `[TID]`. Needed before anything goes out.
-- 8 artwork titles in `js/works.js` marked `[granska]` are AI-suggested placeholders — need real titles from the family
+- Done 2026-09-05: times confirmed and applied everywhere — site `#utstallning` section
+  (+ `.exhibition-banner__hours`), ExhibitionEvent JSON-LD (datetimes + vernissage subEvent),
+  Om oss timeline, and `vernissage_texter.md` (all `[TID]` gaps filled, 🥂/"ta ett glas" removed
+  since the gallery is alcohol-free). Texts are ready to send; the newsletter is due ~15 Sep.
+- Done 2026-09-05: all artwork titles confirmed (robin04 → "Flow"; Lennart/Ninni suggestions kept). No `[granska]` markers remain.
 - `_Archived/` (untracked, gitignored): old pre-overhaul copy of the site + a feedback PDF — historical only, never deploy or commit
 - Hosting: DONE (2026-08-07) — GitHub repo imported into Robin's Vercel account (project "ateljesallstrom", team robinsallstroms-projects; note: project names "atelje-sallstrom"/"atelje-sallstrom-442b" were taken/renamed). ateljesallstrom.se + www live on Vercel; DNS at Inleed (A @ → 216.150.1.1, CNAME www → e247c5cb1ba7cefc.vercel-dns-016.com, www 308-redirects to apex). MX/SPF for mail untouched. Old Netlify site can be deleted.
 - IMPROVEMENT_PLAN.md P2 ideas not yet built: per-artwork inquiry button, dedicated Utställningar page, EN language toggle, Instagram feed

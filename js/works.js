@@ -8,8 +8,6 @@
    2. Add an entry below. `size` may be "tall" or
       "wide" for larger grid cells, or omitted.
 
-   OBS! Titlar markerade [granska] är förslag —
-   byt gärna till verkets riktiga titel.
    ============================================ */
 window.WORKS = [
   // — Lennart —
@@ -18,13 +16,13 @@ window.WORKS = [
   { stem: 'lennart02', title: 'Röd komposition', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', w: 800, h: 596 },
   { stem: 'lennart06', title: 'Södermalm i färg', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', size: 'tall', w: 800, h: 1422 },
   { stem: 'lennart08', title: 'Abstrakt stadsvy', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', w: 800, h: 647 },
-  { stem: 'lennart03', title: 'Stadsmotiv i rött', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', size: 'tall', w: 800, h: 1127 }, // [granska]
-  { stem: 'lennart05', title: 'Kvarter i kvällsljus', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', w: 800, h: 673 }, // [granska]
-  { stem: 'lennart07', title: 'Gatuliv', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', w: 800, h: 626 }, // [granska]
+  { stem: 'lennart03', title: 'Stadsmotiv i rött', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', size: 'tall', w: 800, h: 1127 },
+  { stem: 'lennart05', title: 'Kvarter i kvällsljus', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', w: 800, h: 673 },
+  { stem: 'lennart07', title: 'Gatuliv', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', w: 800, h: 626 },
 
   // — Robin —
   { stem: 'robin03', title: 'Interstellar Dreams', artist: 'robin', artistName: 'Robin Sällström', medium: 'Digital konst', size: 'tall', w: 800, h: 1000 },
-  { stem: 'robin04', title: 'Digital komposition', artist: 'robin', artistName: 'Robin Sällström', medium: 'Digital konst', w: 800, h: 1132 }, // [granska]
+  { stem: 'robin04', title: 'Flow', artist: 'robin', artistName: 'Robin Sällström', medium: 'Digital konst', w: 800, h: 1132 },
   { stem: 'robin05', title: 'Neonljus', artist: 'robin', artistName: 'Robin Sällström', medium: 'Digital konst', w: 800, h: 1000 },
   { stem: 'robin08', title: 'Skymning', artist: 'robin', artistName: 'Robin Sällström', medium: 'Digital konst', size: 'wide', w: 800, h: 626 },
   { stem: 'robin09', title: 'Surrealistisk dröm', artist: 'robin', artistName: 'Robin Sällström', medium: 'Digital konst', w: 800, h: 1131 },
@@ -32,13 +30,13 @@ window.WORKS = [
 
   // — Ninni —
   { stem: 'ninni05', title: 'Under ytan', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Akryl pouring', w: 800, h: 626 },
-  { stem: 'ninni15', title: 'Isblomma', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Akryl pouring', size: 'tall', w: 800, h: 626 }, // [granska]
+  { stem: 'ninni15', title: 'Isblomma', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Akryl pouring', size: 'tall', w: 800, h: 626 },
   { stem: 'ninni06', title: 'Flytande färger', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Akryl pouring', w: 800, h: 533 },
-  { stem: 'ninni13', title: 'Blåsippor', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Fotografi', w: 800, h: 533 }, // [granska]
+  { stem: 'ninni13', title: 'Blåsippor', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Fotografi', w: 800, h: 533 },
   { stem: 'ninni22', title: 'Naturens former', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Fotografi', w: 800, h: 450 },
   { stem: 'ninni10', title: 'Poetisk natur', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Fotografi', size: 'tall', w: 800, h: 1422 },
-  { stem: 'ninni04', title: 'Himlatoner', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Fotografi', size: 'wide', w: 800, h: 533 }, // [granska]
-  { stem: 'ninni23', title: 'Havsbris', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Fotografi', w: 800, h: 450 }, // [granska]
+  { stem: 'ninni04', title: 'Himlatoner', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Fotografi', size: 'wide', w: 800, h: 533 },
+  { stem: 'ninni23', title: 'Havsbris', artist: 'ninni', artistName: 'Ninni Sällström', medium: 'Fotografi', w: 800, h: 450 },
   // — Salen-serien (Lennart) — 48 verk från utställningen
   { stem: 'salen01', title: 'Verk 1', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', w: 800, h: 573 },
   { stem: 'salen02', title: 'Verk 2', artist: 'lennart', artistName: 'Lennart Sällström', medium: 'Akryl', w: 800, h: 517 },
