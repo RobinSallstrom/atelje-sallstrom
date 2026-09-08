@@ -28,53 +28,35 @@ Site language is **Swedish**. Live domain target: `ateljesallstrom.se`.
 2. Generate `images/opt/<stem>-800.webp` and `images/opt/<stem>-1600.webp` (max widths 800/1600)
 3. Add one entry to `js/works.js` (title, artist, medium, w/h of the 800px version, optional `size: 'tall'|'wide'`)
 
-## Current state (as of August 2026)
+## Facts you can't get from the repo
 
-Done: the big July 2026 overhaul — performance pass (image optimization to WebP),
-SEO (meta/OG/sitemap/robots/JSON-LD), accessibility, data-driven gallery (~70 works incl.
-48 "salen" works under Lennart), aurora background, Vercel migration, working Web3Forms
-contact + newsletter forms. Most of IMPROVEMENT_PLAN.md P0/P1 is complete.
+Session status lives in `PROGRESS.md` — read it first. This section is only for context that is
+outside git.
 
-**The live deadline: exhibition ”Mellan Stad och Dröm”, 10–13 October 2026** (9 Oct is hang-day only),
-vernissage Saturday 10 October 12–20; open Sat 12–20, Sun–Tue 12–18 (updated 2026-09-08). Snacks, no alcohol (gallery is dry).
-Galleri Hornsgatan 96, Stockholm.
+**Exhibition ”Mellan Stad och Dröm”, 10–13 October 2026**, Galleri Hornsgatan 96, Stockholm.
+9 Oct is hang-day only. Vernissage Sat 10 Oct 12–20; open Sat 12–20, Sun–Tue 12–18.
+Snacks, no alcohol (the gallery is dry) — never write ”ta ett glas”/🥂 in copy.
+Barbro Edlund runs the studio but does not exhibit: she belongs in ”Vår historia”, not the artist grid.
+Footer says ”två generationers” (not tre).
 
-`marknadsforing/` (local only, gitignored, excluded from deploy — tidied 2026-09-05):
+`marknadsforing/` (local only, gitignored, excluded from deploy):
 - `_export/poster_a3_exhibition26.png` — **the final A3 poster** (3508×4961 @ 300 dpi, 10–13 Oct,
   no times on it by design). Anything else print-ready gets exported here.
-- `assets/poster_a3_exhibition26_B.psd` — the layered source PSD, plus the artwork crops it uses
-  (`city_fit.jpg`, `ninni_akvarell_blomma.jpg`, `rad_fit.jpg`, `aurora_bg.jpg`, …)
-- `_psd_layers/` — `POSTER_SPEC.md` (build spec) + full-canvas PNGs of each layer
-- `_fonts/` — Cormorant Garamond + DM Sans TTFs
+- `assets/poster_a3_exhibition26_B.psd` — the layered source PSD (every element on its own named
+  layer, artworks as smart objects, all text live), plus the artwork crops it uses.
+  Read `_psd_layers/POSTER_SPEC.md` before touching it. Cormorant Garamond + DM Sans TTFs are in
+  `_fonts/` and must be installed in `~/Library/Fonts`, or Photoshop silently falls back to Myriad.
 - `vernissage_texter.md` — ready-to-send copy (newsletter, Instagram, FB event, press, SMS, schedule)
 - `_archive/`, `_to_delete/`, `refs/` — old Aug posters/PDFs/WiP, junk, empty. Ignore.
-There is no A4 poster or trifold with the final dates yet — make them from the PSD if needed.
+There is no A4 poster or trifold with the final dates — make them from the PSD if needed.
 
-Done 2026-08-30 (poster): `poster_a3_exhibition26_B.psd` rebuilt from scratch with every
-element on its own named layer — artworks as smart objects, all nine text lines live and
-editable. Layout **B**: Ninni's watercolour (`assets/ninni_akvarell_blomma.jpg`) takes the
-portrait slot, Robin's abstract moves to the wide band. Full build spec, coordinates, type
-sizes, colours and the two known deltas are in `_psd_layers/POSTER_SPEC.md` — read that
-before touching the poster. Cormorant Garamond + DM Sans TTFs are in `_fonts/` and installed
-to `~/Library/Fonts`; without them Photoshop silently falls back to Myriad.
+Hosting: Vercel project "ateljesallstrom" (team robinsallstroms-projects; the names
+"atelje-sallstrom"/"atelje-sallstrom-442b" were taken). DNS at Inleed: A @ → 216.150.1.1,
+CNAME www → e247c5cb1ba7cefc.vercel-dns-016.com, www 308-redirects to apex. MX/SPF untouched.
+Old Netlify site can be deleted.
 
-Done 2026-08-30: exhibition announced on the site (`#utstallning` section on index.html with
-ExhibitionEvent JSON-LD; upcoming entry at the top of the Om oss Utställningar timeline),
-Barbro Edlund introduced in "Vår historia" (she runs the studio rather than exhibiting, so she
-sits with the family, not the artist grid), "två/tre generationers" footer contradiction
-resolved on två. Ready-to-send vernissage copy in `marknadsforing/vernissage_texter.md`
-(newsletter, Instagram, stories, Facebook event, press notice, send schedule).
-
-In flight / open items:
-
-- Done 2026-09-05: times confirmed and applied everywhere — site `#utstallning` section
-  (+ `.exhibition-banner__hours`), ExhibitionEvent JSON-LD (datetimes + vernissage subEvent),
-  Om oss timeline, and `vernissage_texter.md` (all `[TID]` gaps filled, 🥂/"ta ett glas" removed
-  since the gallery is alcohol-free). Texts are ready to send; the newsletter is due ~15 Sep.
-- Done 2026-09-05: all artwork titles confirmed (robin04 → "Flow"; Lennart/Ninni suggestions kept). No `[granska]` markers remain.
-- `_Archived/` (untracked, gitignored): old pre-overhaul copy of the site + a feedback PDF — historical only, never deploy or commit
-- Hosting: DONE (2026-08-07) — GitHub repo imported into Robin's Vercel account (project "ateljesallstrom", team robinsallstroms-projects; note: project names "atelje-sallstrom"/"atelje-sallstrom-442b" were taken/renamed). ateljesallstrom.se + www live on Vercel; DNS at Inleed (A @ → 216.150.1.1, CNAME www → e247c5cb1ba7cefc.vercel-dns-016.com, www 308-redirects to apex). MX/SPF for mail untouched. Old Netlify site can be deleted.
-- IMPROVEMENT_PLAN.md P2 ideas not yet built: per-artwork inquiry button, dedicated Utställningar page, EN language toggle, Instagram feed
+IMPROVEMENT_PLAN.md P2 ideas not built: per-artwork inquiry button, dedicated Utställningar page,
+EN language toggle, Instagram feed.
 
 ## Conventions & gotchas
 
@@ -86,7 +68,7 @@ In flight / open items:
 
 ## When ending a work session
 
-Update the "Current state" section above with what changed and what's next, and commit it.
+Run `/wrapup`: rewrite `PROGRESS.md`, prune this file, update the roadmap JSON (below), commit and push.
 
 ## Portfolio roadmap (cross-project)
 

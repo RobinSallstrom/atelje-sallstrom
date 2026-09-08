@@ -1,23 +1,27 @@
 # PROGRESS.md — Ateljé Sällström
 
-**Branch `main`, tree clean** after the 2026-09-08 commit "New opening hours: lör 12–20, sön–tis 12–18;
-vernissage 12–20; add PROGRESS.md". Pushed to origin, so Vercel has deployed the new hours.
+**Branch `main` at `3cb6256`, tree clean** (this wrap-up commit follows). Everything is pushed; Vercel has
+deployed. The roadmap JSON in `~/Documents/Projects/ROBO-OS` was edited (version 1.1.11) but is NOT
+committed in that repo.
 
 ## Where things stand
 
-- Site, JSON-LD, Om oss timeline and the marketing texts all carry the new hours:
-  **lör 12–20 · sön–tis 12–18** (Robin, 2026-09-08). Old hours (lör 12–18, sön 12–17, mån–tis 16–19)
-  are gone everywhere. JSON-LD validated as JSON after the edit.
-- No tests or build exist. Verification = open the HTML files and `python3 -m json.tool` on the JSON-LD.
-- Newsletter + Instagram send is due ~15 Sep; copy lives in `marknadsforing/vernissage_texter.md`.
-- The final A3 poster (`marknadsforing/_export/poster_a3_exhibition26.png`) has no times on it by design,
-  so it is unaffected. No A4 poster or trifold exists with final dates.
+- Live site (ateljesallstrom.se) carries the final exhibition info: 10–13 Oct, vernissage Sat 12–20,
+  open Sat 12–20 · Sun–Tue 12–18. Verified on the live HTML on 2026-09-08 after deploy.
+- Same hours are in the ExhibitionEvent JSON-LD, the Om oss timeline and
+  `marknadsforing/vernissage_texter.md` (gitignored). Texts are ready to send.
+- No tests or build exist. Verification is opening the HTML and checking the JSON-LD parses.
+- A3 poster is final and has no times on it. No A4 poster or trifold exists with final dates.
+- Nothing on the site is half-done.
 
 ## Next action
 
-1. Check https://ateljesallstrom.se/#utstallning shows lör 12–20 · sön–tis 12–18 and vernissage 12–20.
-2. Roadmap: refresh `lastActivity` and bump `version` in `~/Documents/Projects/ROBO-OS/docs/roadmap/roadmap.json`.
-3. Send the vernissage set around 15 Sep (newsletter first, then Instagram/Facebook per the schedule in the texts file).
+1. Around 15 Sep: send the newsletter from the ”Nyhetsbrev” block in `marknadsforing/vernissage_texter.md`,
+   then the Instagram post, following the send schedule at the bottom of that file.
+2. Commit the roadmap change in `~/Documents/Projects/ROBO-OS` (docs/roadmap/roadmap.json).
+3. Optional: remake the A4 poster / trifold from `assets/poster_a3_exhibition26_B.psd` with 10–13 Oct.
+4. After the exhibition (14 Oct+): move the Om oss timeline entry from ”Kommande” to past, remove the
+   `#utstallning` banner or turn it into a recap, drop the ExhibitionEvent JSON-LD.
 
 ## Dead ends
 
@@ -25,13 +29,15 @@ none
 
 ## Decided (by Robin)
 
-- Opening hours: lör 12–20, sön 12–18, mån 12–18, tis 12–18 (2026-09-08).
-- Vernissage runs the full Saturday, 12–20 (2026-09-08).
-- Exhibition name, dates 10–13 Oct, venue, alcohol-free, dates-only poster (earlier sessions).
+- Opening hours lör 12–20, sön–tis 12–18, and vernissage runs the whole Saturday 12–20 (2026-09-08).
+- Commit and push straight to `main`, no branch or preview (2026-09-08).
 
 ## Assumed (by Claude, not confirmed)
 
-- Collapsing "söndag 12–17 · måndag–tisdag 16–19" into "söndag–tisdag 12–18" is fine wording.
+- Wording ”söndag–tisdag 12–18” instead of listing each day; Robin saw the diff summary and pushed, but
+  never commented on the phrasing.
+- Roadmap milestone ”Send vernissage set” set to `in_progress` (nothing has actually been sent yet).
+- CLAUDE.md ”Current state” section replaced by ”Facts you can't get from the repo”; status now lives here.
 
 ## Open questions
 
@@ -39,4 +45,4 @@ none
 
 ## Re-verify before trusting
 
-- That the live site updates after push (Vercel auto-deploy was working as of 2026-09-05).
+- That the roadmap JSON edit in ROBO-OS is still uncommitted there (another session may have committed it).
