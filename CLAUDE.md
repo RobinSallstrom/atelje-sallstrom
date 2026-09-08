@@ -36,7 +36,7 @@ SEO (meta/OG/sitemap/robots/JSON-LD), accessibility, data-driven gallery (~70 wo
 contact + newsletter forms. Most of IMPROVEMENT_PLAN.md P0/P1 is complete.
 
 **The live deadline: exhibition ”Mellan Stad och Dröm”, 10–13 October 2026** (9 Oct is hang-day only),
-vernissage Saturday 10 October 12–18; open Sat 12–18, Sun 12–17, Mon–Tue 16–19. Snacks, no alcohol (gallery is dry).
+vernissage Saturday 10 October 12–20; open Sat 12–20, Sun–Tue 12–18 (updated 2026-09-08). Snacks, no alcohol (gallery is dry).
 Galleri Hornsgatan 96, Stockholm.
 
 `marknadsforing/` (local only, gitignored, excluded from deploy — tidied 2026-09-05):
