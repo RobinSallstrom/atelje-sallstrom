@@ -34,7 +34,7 @@ Session status lives in `PROGRESS.md` — read it first. This section is only fo
 outside git.
 
 **Exhibition ”Mellan Stad och Dröm”, 10–13 October 2026**, Galleri Hornsgatan 96, Stockholm.
-9 Oct is hang-day only. Vernissage Sat 10 Oct 12–20; open Sat 12–20, Sun–Tue 12–18.
+9 Oct is hang-day only. Vernissage Sat 10 Oct 12–18; open Sat–Sun 12–18, Mon–Tue 15–19 (changed 2026-09-24).
 Snacks, no alcohol (the gallery is dry) — never write ”ta ett glas”/🥂 in copy.
 Barbro Edlund runs the studio but does not exhibit: she belongs in ”Vår historia”, not the artist grid.
 Footer says ”två generationers” (not tre).

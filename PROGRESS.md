@@ -6,8 +6,8 @@ committed in that repo.
 
 ## Where things stand
 
-- Live site (ateljesallstrom.se) carries the final exhibition info: 10–13 Oct, vernissage Sat 12–20,
-  open Sat 12–20 · Sun–Tue 12–18. Verified on the live HTML on 2026-09-08 after deploy.
+- 2026-09-24: opening hours changed to Sat–Sun 12–18 · Mon–Tue 15–19 (vernissage Sat 12–18). Edited in
+  index.html (banner + JSON-LD), om-oss.html and vernissage_texter.md — needs commit + push by Robin.
 - Same hours are in the ExhibitionEvent JSON-LD, the Om oss timeline and
   `marknadsforing/vernissage_texter.md` (gitignored). Texts are ready to send.
 - No tests or build exist. Verification is opening the HTML and checking the JSON-LD parses.
@@ -29,7 +29,7 @@ none
 
 ## Decided (by Robin)
 
-- Opening hours lör 12–20, sön–tis 12–18, and vernissage runs the whole Saturday 12–20 (2026-09-08).
+- Opening hours lör–sön 12–18, mån–tis 15–19; vernissage runs the whole Saturday 12–18 (2026-09-24, replaces 09-08 hours).
 - Commit and push straight to `main`, no branch or preview (2026-09-08).
 
 ## Assumed (by Claude, not confirmed)
