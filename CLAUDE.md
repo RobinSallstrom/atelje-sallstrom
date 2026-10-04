@@ -45,10 +45,16 @@ Footer says ”två generationers” (not tre).
 - `assets/poster_a3_exhibition26_B.psd` — the layered source PSD (every element on its own named
   layer, artworks as smart objects, all text live), plus the artwork crops it uses.
   Read `_psd_layers/POSTER_SPEC.md` before touching it. Cormorant Garamond + DM Sans TTFs are in
-  `_fonts/` and must be installed in `~/Library/Fonts`, or Photoshop silently falls back to Myriad.
+  `_fonts/` and must be installed (Mac: `~/Library/Fonts`; Windows: Fonts settings), or Photoshop silently falls back to Myriad.
 - `vernissage_texter.md` — ready-to-send copy (newsletter, Instagram, FB event, press, SMS, schedule)
 - `_archive/`, `_to_delete/`, `refs/` — old Aug posters/PDFs/WiP, junk, empty. Ignore.
 There is no A4 poster or trifold with the final dates — make them from the PSD if needed.
+
+Exhibition animation (After Effects, not in git):
+`C:\Users\ROBIN\SynologyDrive\02_Internal\01_Projects\atelje-sallstrom\02_Projects\01_AE\MellanStadochDrom_V01.aep`,
+comp `MellanStadochDrom_MC`. Drive it with the `ae-vision` MCP. Find layers by name, never by index —
+Robin edits the comp between calls. Never save the .aep (Robin saves). `Window Lights` copies the
+night PNG's parent/transform so its masks are in PNG pixel space — if the PNG moves, move both.
 
 Hosting: Vercel project "ateljesallstrom" (team robinsallstroms-projects; the names
 "atelje-sallstrom"/"atelje-sallstrom-442b" were taken). DNS at Inleed: A @ → 216.150.1.1,
