@@ -55,6 +55,14 @@ Exhibition animation (After Effects, not in git):
 comp `MellanStadochDrom_MC`. Drive it with the `ae-vision` MCP. Find layers by name, never by index —
 Robin edits the comp between calls. Never save the .aep (Robin saves). `Window Lights` copies the
 night PNG's parent/transform so its masks are in PNG pixel space — if the PNG moves, move both.
+- Painting layers are parented to `salen22.jpg`, so their Position isn't comp space: convert comp coords
+  with a temporary `fromComp([x,y])` expression (read via `valueAtTime`) before drawing masks.
+- Day/night timing lives only in the 4 opacity keys on `salen22_night_V02_Upscaled.png`; other night
+  layers follow by expression. Retime there; don't add keys elsewhere.
+- `Side-frame-vignette` is locked: unlock, edit, re-lock.
+- ExtendScript: `in` is reserved as an object key; 2D rotation is `ADBE Rotate Z`; Position tangents take
+  3 values; Linear Color Key is `ADBE Linear Color Key2`.
+- For close-up checks, render a temp crop comp (`_tmp_*`) containing the main comp, then delete it.
 
 Hosting: Vercel project "ateljesallstrom" (team robinsallstroms-projects; the names
 "atelje-sallstrom"/"atelje-sallstrom-442b" were taken). DNS at Inleed: A @ → 216.150.1.1,
@@ -79,15 +87,16 @@ Run `/wrapup`: rewrite `PROGRESS.md`, prune this file, update the roadmap JSON (
 ## Portfolio roadmap (cross-project)
 
 This project is **`atelje-sallstrom`** in Robin's portfolio roadmap — currently **NEXT #3**.
-Data: `../ROBO-OS/docs/roadmap/roadmap.json` (absolute: `~/Documents/Projects/ROBO-OS/docs/roadmap/roadmap.json`).
+Data: `~/Documents/Projects/portfolio-roadmap/roadmap.json` (git repo `RobinSallstrom/portfolio-roadmap`; `git pull --ff-only` first).
 **The JSON is the source of truth.** The published board (Claude artifact) and
-`ROBO-OS/docs/roadmap/portfolio-roadmap.html` are renderings of it — never edit those; edit the JSON.
+`portfolio-roadmap.html` are renderings of it — never edit those; edit the JSON.
 This works from any Claude profile or tool: it's a file, not an account.
 
 - **Session start:** read this project's entry — tier, `tierNote`, `milestones`, `triggers`, `nextAction`, `blockers`.
-  `python3 -c "import json;p=[x for x in json.load(open('$HOME/Documents/Projects/ROBO-OS/docs/roadmap/roadmap.json'))['projects'] if x['id']=='atelje-sallstrom'][0];print(json.dumps(p,indent=2,ensure_ascii=False))"`
+  `python3 -c "import json;p=[x for x in json.load(open('$HOME/Documents/Projects/portfolio-roadmap/roadmap.json',encoding='utf-8'))['projects'] if x['id']=='atelje-sallstrom'][0];print(json.dumps(p,indent=2,ensure_ascii=False))"`
 - **Wrap-up (alongside PROGRESS.md):** update the entry — set finished milestones to `"status":"done"` with a `"date"`,
   mark the one you're on `"in_progress"`, add new milestones only if they're coarse (5–10 per project, never task-level),
   refresh `currentPhase`, `nextAction`, `lastActivity`, `percentComplete`, and the `git` counts. Bump the top-level `version` patch number.
+  Commit as `roadmap(atelje-sallstrom): <what moved>` and push.
 - **Never change** `tier`, `tierRank`, `tierNote`, `scores`, `triggers` or `ownership` — those are Robin's decisions, made in review.
 - Milestone `status` ∈ pending · in_progress · done · dropped. Keep valid JSON (`python3 -m json.tool` on the file). Do not reformat the whole file.
