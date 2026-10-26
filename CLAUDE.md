@@ -86,17 +86,18 @@ Run `/wrapup`: rewrite `PROGRESS.md`, prune this file, update the roadmap JSON (
 
 ## Portfolio roadmap (cross-project)
 
-This project is **`atelje-sallstrom`** in Robin's portfolio roadmap — currently **NEXT #3**.
-Data: `~/Documents/Projects/portfolio-roadmap/roadmap.json` (git repo `RobinSallstrom/portfolio-roadmap`; `git pull --ff-only` first).
-**The JSON is the source of truth.** The published board (Claude artifact) and
-`portfolio-roadmap.html` are renderings of it — never edit those; edit the JSON.
-This works from any Claude profile or tool: it's a file, not an account.
+This project is **`atelje-sallstrom`** in Robin's portfolio roadmap. Its tier and rank live in the entry — read them, don't assume.
+Data: `~/Documents/Projects/portfolio-roadmap/roadmap.json` — its own git repo (`RobinSallstrom/portfolio-roadmap`, private).
+**Git is the record:** every computer syncs through it, and ROBO-OS reads it from GitHub (and commits its own edits there).
+The HTML board and the ROBO-OS board are renderings — never edit those; edit the JSON.
+Folder missing on this machine? `gh repo clone RobinSallstrom/portfolio-roadmap ~/Documents/Projects/portfolio-roadmap`
 
-- **Session start:** read this project's entry — tier, `tierNote`, `milestones`, `triggers`, `nextAction`, `blockers`.
-  `python3 -c "import json;p=[x for x in json.load(open('$HOME/Documents/Projects/portfolio-roadmap/roadmap.json',encoding='utf-8'))['projects'] if x['id']=='atelje-sallstrom'][0];print(json.dumps(p,indent=2,ensure_ascii=False))"`
-- **Wrap-up (alongside PROGRESS.md):** update the entry — set finished milestones to `"status":"done"` with a `"date"`,
+- **Session start:** `git -C ~/Documents/Projects/portfolio-roadmap pull --ff-only`, then read this project's entry — tier, `tierNote`, `milestones`, `triggers`, `nextAction`, `blockers`.
+  `python3 -c "import json;p=[x for x in json.load(open('$HOME/Documents/Projects/portfolio-roadmap/roadmap.json'))['projects'] if x['id']=='atelje-sallstrom'][0];print(json.dumps(p,indent=2,ensure_ascii=False))"`
+- **Wrap-up (alongside PROGRESS.md):** pull again, then update the entry — set finished milestones to `"status":"done"` with a `"date"`,
   mark the one you're on `"in_progress"`, add new milestones only if they're coarse (5–10 per project, never task-level),
-  refresh `currentPhase`, `nextAction`, `lastActivity`, `percentComplete`, and the `git` counts. Bump the top-level `version` patch number.
-  Commit as `roadmap(atelje-sallstrom): <what moved>` and push.
+  refresh `currentPhase`, `nextAction`, `lastActivity`, `percentComplete`, and the `git` counts. Then commit and push it:
+  `git -C ~/Documents/Projects/portfolio-roadmap add roadmap.json && git -C ~/Documents/Projects/portfolio-roadmap commit -m "roadmap(atelje-sallstrom): <what moved>" && git -C ~/Documents/Projects/portfolio-roadmap push`
+  Push rejected → `pull --rebase`, push again. Offline → leave the commit; the next session's push carries it.
 - **Never change** `tier`, `tierRank`, `tierNote`, `scores`, `triggers` or `ownership` — those are Robin's decisions, made in review.
-- Milestone `status` ∈ pending · in_progress · done · dropped. Keep valid JSON (`python3 -m json.tool` on the file). Do not reformat the whole file.
+- Milestone `status` ∈ pending · in_progress · done · dropped. Keep valid JSON (`python3 -m json.tool` on the file), 2-space indent. Do not reformat the whole file, and do not bump `version` — git history is the version.
